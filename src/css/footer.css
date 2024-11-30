@@ -1,0 +1,119 @@
+/* footer.css */
+
+/* General Footer Styles */
+.footer-wrapper {
+    background-color: #f9fafb; /* Light background color */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    color: #4b5563; /* Gray text color */
+    font-size: 1rem;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    text-align: center; /* Align the text in the center for mobile */
+  }
+  
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: repeat(4, 1fr);
+      text-align: left; /* Align the text to the left for larger screens */
+    }
+  }
+  
+  /* Company Info Section */
+  .footer-company-info {
+    color: #111827; /* Darker color for more visibility */
+  }
+  
+  .footer-company-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-company-description {
+    font-size: 1rem;
+    color: #6b7280; /* Light gray text color */
+  }
+  
+  /* Company Links Section */
+  .footer-company-links-title,
+  .footer-resource-links-title,
+  .footer-social-links-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .footer-company-links-list,
+  .footer-resource-links-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-company-links-item,
+  .footer-resource-links-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-company-link,
+  .footer-resource-link {
+    font-size: 1rem;
+    color: #4b5563; /* Gray text color */
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .footer-company-link:hover,
+  .footer-resource-link:hover {
+    color: #1f2937; /* Darker gray on hover */
+    text-decoration: underline;
+  }
+  
+  /* Social Links Section */
+  .footer-social-links-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .footer-social-links-container {
+      justify-content: flex-start; /* Align to the left on larger screens */
+    }
+  }
+  
+  .footer-social-link {
+    color: #6b7280; /* Gray color for social icons */
+    transition: color 0.2s ease;
+  }
+  
+  .footer-social-link:hover {
+    color: #4b5563; /* Darker gray on hover */
+  }
+  
+  .footer-social-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  /* Footer Bottom Section */
+  .footer-bottom {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb; /* Light gray border for separation */
+    font-size: 0.875rem;
+    color: #6b7280; /* Light gray text color */
+  }
+  
