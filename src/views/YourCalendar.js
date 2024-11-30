@@ -5,8 +5,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import { getConfig } from "../config";
 import Loading from "../components/Loading";
 import CalendarApp from '../components/calendar-app'
-
-
+import "./backend_calendar.css";
 
 export const ExternalApiComponent = () => {
   const { apiOrigin = "http://localhost:3001", audience } = getConfig();
@@ -196,7 +195,7 @@ export const ExternalApiComponent = () => {
         <CalendarApp />
       </div>
     </>
-    
+
   );
 };
 

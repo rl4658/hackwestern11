@@ -2,7 +2,8 @@
 
 .content-wrapper {
   padding: 4rem 0;
-  background-color: #f9fafb; /* Light background for contrast */
+  background-color: #f9fafb;
+  /* Light background for contrast */
 }
 
 .key-features-section {
@@ -13,7 +14,8 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 3rem;
-  color: #111827; /* Dark color for text */
+  color: #111827;
+  /* Dark color for text */
 }
 
 .content-container {
@@ -76,6 +78,7 @@
 .key-feature-card-icon {
   width: 40px;
   height: 40px;
-  color: #111827; /* Dark icon color for visibility */
+  color: #111827;
+  /* Dark icon color for visibility */
   margin-right: 1rem;
 }

@@ -1,55 +1,79 @@
-'use client'
-import { useState } from 'react'
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay } from 'date-fns'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from "@mui/material"
+"use client";
+import { useState } from "react";
+import {
+  format,
+  startOfMonth,
+  endOfMonth,
+  eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
+} from "date-fns";
+import "../css/calendar.css";
 
-export function SideCalendar({ selectedDate, onDateSelect }) {
-  const [currentMonth, setCurrentMonth] = useState(startOfMonth(selectedDate))
+export default function SideCalendar({ selectedDate, onDateSelect }) {
+  const [currentMonth, setCurrentMonth] = useState(startOfMonth(selectedDate));
 
   const days = eachDayOfInterval({
     start: startOfMonth(currentMonth),
     end: endOfMonth(currentMonth),
-  })
+  });
 
-  const prevMonth = () => setCurrentMonth((prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1))
-  const nextMonth = () => setCurrentMonth((next) => new Date(next.getFullYear(), next.getMonth() + 1, 1))
+  const prevMonth = () =>
+    setCurrentMonth(
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1),
+    );
+  const nextMonth = () =>
+    setCurrentMonth(
+      (next) => new Date(next.getFullYear(), next.getMonth() + 1, 1),
+    );
 
   return (
-    <div className="w-full bg-white rounded-lg shadow">
-      <div className="flex items-center justify-between mb-4">
-        <Button variant="ghost" onClick={prevMonth}>
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <h2 className="text-lg font-semibold">{format(currentMonth, 'MMMM yyyy')}</h2>
-        <Button variant="ghost" onClick={nextMonth}>
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+    <div className="side-calendar">
+      {/* Calendar Header */}
+      <div className="side-calendar-header">
+        <button
+          onClick={prevMonth}
+          className="calendar-nav-button"
+          aria-label="Previous Month"
+        >
+          &lt;
+        </button>
+        <h2 className="calendar-month-title">
+          {format(currentMonth, "MMMM yyyy")}
+        </h2>
+        <button
+          onClick={nextMonth}
+          className="calendar-nav-button"
+          aria-label="Next Month"
+        >
+          &gt;
+        </button>
       </div>
-      <div className="grid grid-cols-7 gap-1 text-center">
-        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
-          <div key={day} className="text-gray-500 font-medium">
-            {day}
-          </div>
+
+      {/* Week Days */}
+      <div className="weekday-labels">
+        {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+          <div key={day}>{day}</div>
         ))}
+      </div>
+
+      {/* Days */}
+      <div className="days-grid">
         {days.map((day) => (
-          <Button
-            key={day.toString()}
-            variant="ghost"
-            className={`p-2 ${
-              !isSameMonth(day, currentMonth)
-                ? 'text-gray-300'
-                : isSameDay(day, selectedDate)
-                ? 'bg-blue-500 text-white'
-                : ''
-            }`}
+          <button
+            key={day.toISOString()}
+            className={`day-button ${isSameDay(day, selectedDate)
+              ? "selected"
+              : isSameMonth(day, currentMonth)
+                ? "current-month"
+                : "outside-month"
+              }`}
             onClick={() => onDateSelect(day)}
           >
-            {format(day, 'd')}
-          </Button>
+            {format(day, "d")}
+          </button>
         ))}
       </div>
     </div>
-  )
+  );
 }
-
