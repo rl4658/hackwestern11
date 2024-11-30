@@ -10,20 +10,22 @@ def csv_to_json(csv_file, json_file):
     with open(csv_file, mode='r') as file:
         reader = csv.reader(file)
         for row in reader:
-            task = {
-                "TaskName": row[0],
-                "TaskStartTime": row[1],
-                "TaskEndTime": row[2],
-                "TaskLocation": None if row[3] == "None" else row[3],
-                "TaskDescription": None if row[4] == "None" else row[4]
-            }
-            tasks.append(task)
-
+            # Ensure the row has exactly 5 elements
+            if len(row) == 5:
+                task = {
+                    "TaskName": row[0].strip(),
+                    "TaskStartTime": row[1].strip(),
+                    "TaskEndTime": row[2].strip(),
+                    "TaskLocation": row[3].strip() if row[3].strip() else "None",
+                    "TaskDescription": row[4].strip() if row[4].strip() else "None"
+                }
+                tasks.append(task)
 
     with open(json_file, mode='w') as file:
         json.dump(tasks, file, indent=2)
+    
     print(f"Successfully converted {csv_file} to {json_file}")
-
+    return tasks
 
 def json_to_csv(json_file, csv_file):
     """
@@ -39,17 +41,17 @@ def json_to_csv(json_file, csv_file):
                 task.get("TaskName", "None"),
                 task.get("TaskStartTime", "None"),
                 task.get("TaskEndTime", "None"),
-                task.get("TaskLocation", "None") if task.get("TaskLocation") is not None else "None",
-                task.get("TaskDescription", "None") if task.get("TaskDescription") is not None else "None"
+                task.get("TaskLocation", "None"),
+                task.get("TaskDescription", "None")
             ])
-    print(f"Successfully converted {json_file} to {csv_file}")
 
+    print(f"Successfully converted {json_file} to {csv_file}")
+    return tasks
 
 # Example Usage:
 if __name__ == "__main__":
     # Convert CSV to JSON
-    print
     csv_to_json('user_schedule_csv/example_schedule.csv', 'test/test.json')
-    # Convert JSON to CSV
     
-
+    # Convert JSON to CSV
+    json_to_csv('test/test.json', 'test/test.csv')
