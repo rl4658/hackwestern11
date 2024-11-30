@@ -5,10 +5,39 @@ import time
 from dotenv import load_dotenv
 
 load_dotenv()
-file_list = []
 
 # Initialize OpenAI client
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+def write_to_file():
+    """
+    Write content of OpenAI files to CSV files in the specified directory
+    
+    Args:
+        base_directory (str): Directory path where CSV files will be saved
+    """
+    # Ensure the directory exists
+    
+    # Get the list of files
+    file_objects = get_file_list()
+    
+    # Iterate through the files
+    for i, file_object in enumerate(file_objects, 1):
+        # Construct the full file path
+        file_path = 'possible_schedule_csv/schedule_option_' + str(i) + '.csv'
+        
+        try:
+            # Retrieve the file content
+            content = client.files.content(file_object.id).text
+            
+            # Write the content to the file
+            with open(file_path, "w", encoding='utf-8',newline='') as file:
+                file.write(content)
+            
+            print(f"Successfully wrote content to {file_path}")
+        
+        except Exception as e:
+            print(f"Error writing file {file_path}: {e}")
 
 def get_file_list():
     """
@@ -19,7 +48,7 @@ def get_file_list():
         limit=5,
     )
 
-    return file_object_list
+    return file_object_list.data
 
 
 
@@ -28,7 +57,7 @@ def create_schedule_assistant():
     Create an OpenAI Assistant for schedule management
     """
     file = client.files.create(
-        file=open("example_schedule.csv", "rb"),
+        file=open("user_schedule/example_schedule.csv", "rb"),
         purpose='assistants'
     )
 
@@ -119,6 +148,3 @@ def process_schedule_request(query):
         if input_file is not None:
             client.files.delete(input_file.id)
 
-# Example usage
-if __name__ == "__main__":
-    print("File list:" + str(get_file_list()))
