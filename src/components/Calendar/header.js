@@ -17,11 +17,6 @@ export default function Header() {
         <Button variant="outline" size="icon">
           <FolderSync className="header-icon" />
         </Button>
-        <Avatar>
-          {/* Avatar content here */}
-          {/* <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback> */}
-        </Avatar>
       </div>
     </header>
   );
