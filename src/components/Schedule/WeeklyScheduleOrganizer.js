@@ -1,156 +1,166 @@
-import React, { useState, useRef } from 'react';
-import axios from 'axios'; // Import axios for HTTP requests
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import SelectedSchedule from './SelectedSchedule';
-import GeneratedSchedules from './GeneratedSchedules';
 import ChatPrompt from './chatPrompt';
-import Input from './utils/input';
+import { v4 as uuidv4 } from 'uuid';
 import { ExportButton, AddButton, GenerateButton } from './utils/button';
-import { parseJsonSchedule, generateScheduleFromPrompt, generateUniqueSchedules } from './utils/ScheduleUtils';
+import { convertTasksToSchedule } from './utils/ScheduleUtils';
 
 export default function WeeklyScheduleOrganizer() {
-    const [selectedSchedule, setSelectedSchedule] = useState(null); // The currently selected schedule
-    const [generatedSchedules, setGeneratedSchedules] = useState([]); // List of generated schedules
-    const [allSchedules, setAllSchedules] = useState([]); // All schedules (includes imported or generated)
-    const [textInput, setTextInput] = useState(""); // Text input for additional info
-    const fileInputRef = useRef(null); // Ref for the file input
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [generatedSchedules, setGeneratedSchedules] = useState([]);
+  const [allSchedules, setAllSchedules] = useState([]);
+  const fileInputRef = useRef(null);
 
-    // Handles generating 5 unique schedules
-    const handleGenerate = () => {
-        const newSchedules = generateUniqueSchedules(5, allSchedules);
-        setGeneratedSchedules(newSchedules);
-        setAllSchedules([...allSchedules, ...newSchedules]);
-    };
+  useEffect(() => {
+    // Initialize with empty schedules or fetch from a default source if needed
+    setGeneratedSchedules([]);
+    setAllSchedules([]);
+  }, []);
 
-    // Handles exporting the selected schedule as JSON
-    const handleExport = () => {
-        if (selectedSchedule) {
-            const jsonString = JSON.stringify(selectedSchedule, null, 2);
-            const blob = new Blob([jsonString], { type: 'application/json' });
-            const href = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = href;
-            link.download = 'weekly-schedule.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } else {
-            alert('No schedule selected to export!');
-        }
-    };
+  const handlePromptSubmit = async (prompt) => {
+    try {
+      // Send the prompt to the Flask API
+      const response = await axios.post('http://localhost:5000/process_query', {
+        query: prompt,
+      });
 
-    // Handles importing a schedule from a JSON file
-    const handleImport = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const importedSchedule = parseJsonSchedule(e.target.result);
-                    if (importedSchedule) {
-                        setSelectedSchedule(importedSchedule);
-                        setGeneratedSchedules([importedSchedule, ...generatedSchedules.slice(0, 4)]);
-                        setAllSchedules([importedSchedule, ...allSchedules]);
-                    }
-                } catch (error) {
-                    alert('Invalid JSON file. Please check the file content.');
-                }
-            };
-            reader.readAsText(file);
-        }
-    };
+      const { schedules } = response.data;
 
-    // Handles adding a task via prompt
-    const handlePromptSubmit = (prompt) => {
-        const newSchedule = generateScheduleFromPrompt(prompt);
-        setSelectedSchedule(newSchedule);
-        setGeneratedSchedules([newSchedule, ...generatedSchedules.slice(0, 4)]);
-        setAllSchedules([newSchedule, ...allSchedules]);
-    };
+      if (!schedules || !Array.isArray(schedules)) {
+        throw new Error('Invalid response from server');
+      }
 
-    // Handles generating the calendar by sending input text to backend
-    const handleGenerateCalendar = async () => {
-        if (!textInput) {
-            alert("Please enter a query to generate a calendar");
-            return;
-        }
+      // Convert tasks to the schedule format
+      const importedSchedules = schedules.map((scheduleTasks) =>
+        convertTasksToSchedule(scheduleTasks)
+      );
 
+      // Add unique IDs to each schedule
+      const schedulesWithIds = importedSchedules.map((schedule) => ({
+        ...schedule,
+        id: uuidv4(),
+      }));
+
+      // Update state with the new schedules
+      setGeneratedSchedules(schedulesWithIds);
+      setAllSchedules(schedulesWithIds);
+      setSelectedSchedule(schedulesWithIds[0]);
+    } catch (error) {
+      console.error('Error fetching schedules:', error);
+      alert('Failed to fetch schedules. Please try again.');
+    }
+  };
+
+  const handleImport = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
         try {
-            const response = await axios.post('http://localhost:5000/process_query', {
-                query: textInput,
-            });
-            
-            // Update generated schedules with response data
-            if (response.data && response.data.schedules) {
-                setGeneratedSchedules(response.data.schedules);
-                setAllSchedules([...allSchedules, ...response.data.schedules]);
-            }
+          const importedSchedules = JSON.parse(e.target.result);
+          const schedulesWithIds = importedSchedules.map((schedule) => ({
+            ...schedule,
+            id: uuidv4(),
+          }));
+          setGeneratedSchedules(schedulesWithIds);
+          setAllSchedules([...allSchedules, ...schedulesWithIds]);
+          setSelectedSchedule(schedulesWithIds[0]);
         } catch (error) {
-            console.error("Error generating calendar:", error);
-            alert("There was an error generating the calendar. Please try again.");
+          alert('Invalid JSON file. Please check the file content.');
         }
-    };
+      };
+      reader.readAsText(file);
+    }
+  };
 
-    return (
-        <div className="h-screen flex flex-col">
-            {/* Upper Section */}
-            <div className="h-1/2 p-4 relative">
-                <SelectedSchedule schedule={selectedSchedule} />
-                <div className="absolute bottom-4 right-4 flex gap-2 items-center">
-                    <input
-                        type="text"
-                        value={textInput}
-                        onChange={(e) => setTextInput(e.target.value)}
-                        placeholder="Enter info..."
-                        className="px-4 py-2 border rounded focus:outline-none focus:ring"
-                    />
-                    <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                        onClick={handleGenerateCalendar}
-                    >
-                        Generate Calendar
-                    </button>
-                    <button
-                        className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-                        onClick={() => fileInputRef.current.click()}
-                    >
-                        Import
-                    </button>
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleImport}
-                        accept=".json"
-                        className="hidden"
-                    />
-                    <ExportButton selectedSchedule={selectedSchedule} />
-                </div>
-            </div>
-
-            {/* Lower Section */}
-            <div className="h-1/2 flex flex-col">
-                <GeneratedSchedules
-                    schedules={generatedSchedules}
-                    onSelectSchedule={setSelectedSchedule}
-                />
-                <div className="flex justify-between items-center p-4">
-                    <ChatPrompt onSubmit={handlePromptSubmit} />
-                    <div className="flex gap-2">
-                        <GenerateButton onGenerate={handleGenerate} />
-                        <AddButton
-                            onAddTask={(taskPrompt) => {
-                                const updatedSchedule = { ...selectedSchedule };
-                                // Assuming a day and time are parsed from the prompt
-                                const [day, time] = taskPrompt.split(':');
-                                if (!updatedSchedule[day]) {
-                                    updatedSchedule[day] = {};
-                                }
-                                updatedSchedule[day][time] = taskPrompt;
-                                setSelectedSchedule(updatedSchedule);
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="h-screen flex flex-col">
+      {/* Upper Section */}
+      <div className="h-1/2 p-4 relative">
+        <SelectedSchedule schedule={selectedSchedule} />
+        <div className="absolute bottom-4 right-4 flex gap-2">
+          <button
+            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            onClick={() => fileInputRef.current.click()}
+          >
+            Import
+          </button>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImport}
+            accept=".json"
+            className="hidden"
+          />
+          <ExportButton selectedSchedule={selectedSchedule} />
         </div>
-    );
+      </div>
+
+      {/* Lower Section */}
+      <div className="h-1/2 flex flex-col p-4">
+        {/* Buttons to switch between schedules */}
+        <div className="flex gap-4 mb-4">
+          {generatedSchedules.map((schedule, index) => (
+            <button
+              key={schedule.id}
+              className={`px-4 py-2 rounded ${
+                selectedSchedule?.id === schedule.id
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-black hover:bg-gray-300'
+              }`}
+              onClick={() => setSelectedSchedule(schedule)}
+            >
+              Schedule {index + 1}
+            </button>
+          ))}
+        </div>
+
+        {/* Controls */}
+        <div className="flex justify-between items-center">
+          <ChatPrompt onSubmit={handlePromptSubmit} />
+          <div className="flex gap-2">
+            <GenerateButton
+              onGenerate={() =>
+                alert('Generate function is not implemented yet.')
+              }
+            />
+            <AddButton
+              onAddTask={(taskPrompt) => {
+                const [day, time, taskName] = taskPrompt.split(':');
+                const hour = parseInt(time, 10);
+
+                const updatedSchedule = { ...selectedSchedule };
+
+                if (!updatedSchedule[day]) {
+                  updatedSchedule[day] = {};
+                }
+                updatedSchedule[day][hour] = taskName;
+
+                updatedSchedule.id = selectedSchedule.id;
+
+                setSelectedSchedule(updatedSchedule);
+
+                setAllSchedules((prevSchedules) =>
+                  prevSchedules.map((schedule) =>
+                    schedule.id === selectedSchedule.id
+                      ? updatedSchedule
+                      : schedule
+                  )
+                );
+
+                setGeneratedSchedules((prevSchedules) =>
+                  prevSchedules.map((schedule) =>
+                    schedule.id === selectedSchedule.id
+                      ? updatedSchedule
+                      : schedule
+                  )
+                );
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
