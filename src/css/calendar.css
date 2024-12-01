@@ -76,13 +76,11 @@
 }
 
 /* Footer */
-.calendar-footer {
+/* .calendar-footer {
     flex-shrink: 0;
     padding: 16px;
-    /* Equivalent to p-4 in Tailwind */
     background-color: #f3f4f6;
-    /* Equivalent to bg-gray-100 in Tailwind */
-}
+} */
 
 /* Grid container for form elements in AddTaskModal */
 .grid {
@@ -100,15 +98,13 @@
 }
 
 /* Footer container styles */
-footer {
+/* footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    /* Equivalent to p-4 in Tailwind */
     border-top: 1px solid #ddd;
-    /* Equivalent to border-t in Tailwind */
-}
+} */
 
 /* Container for GeneratedSchedules */
 .generated-schedules-container {

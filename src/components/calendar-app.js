@@ -8,7 +8,7 @@ import TaskList from "./tasks-lists";
 import VoicePrompt from "./voice-prompt";
 import AddTaskModel from "./add-tasks-modal";
 import UpcomingEvents from "./upcoming-events";
-import Footer from "./calendar-footer";
+// import Footer from "./calendar-footer";
 import "../css/calendar.css";
 
 export default function CalendarApp() {
@@ -54,7 +54,7 @@ export default function CalendarApp() {
       </div>
 
       {/* Footer */}
-      <Footer className="calendar-footer" />
+      {/* <Footer className="calendar-footer" /> */}
 
       {/* Task Modal */}
       <AddTaskModel
