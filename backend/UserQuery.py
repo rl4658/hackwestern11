@@ -32,10 +32,4 @@ class UserQuery:
         
         return result
 
-# Example usage:
-user_query = UserQuery()
-user_query.add_query("What is the capital of France")
-user_query.add_query("also what is its population")
-user_query.add_query("explain more about its culture")
-
 
