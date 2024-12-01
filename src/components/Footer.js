@@ -23,7 +23,7 @@ const socialLinks = [
 ];
 
 const Footer = () => (
-  <footer className="footer-wrapper bg-gray-100 py-12">
+  <footer className="footer-wrapper">
     <div className="footer-container container mx-auto px-4">
       <div className="footer-grid grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Company Info Section */}
