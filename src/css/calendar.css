@@ -1,0 +1,649 @@
+/* Calendar app container */
+.calendar-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */
+.calendar-header {
+    flex-shrink: 0;
+}
+
+/* Content layout */
+.calendar-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Left sidebar */
+.left-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    background-color: #f9fafb;
+    /* Equivalent to bg-gray-50 in Tailwind */
+    overflow-y: auto;
+}
+
+/* Upcoming events wrapper */
+.upcoming-events-wrapper {
+    margin-top: 16px;
+    /* Equivalent to mt-4 in Tailwind */
+}
+
+/* Main calendar */
+.main-calendar {
+    flex: 1;
+    background-color: #ffffff;
+    /* Equivalent to bg-white in Tailwind */
+    overflow-y: auto;
+}
+
+/* Right sidebar */
+.right-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    background-color: #f9fafb;
+    /* Equivalent to bg-gray-50 in Tailwind */
+    overflow-y: auto;
+}
+
+/* Add task button */
+.add-task-button {
+    width: 100%;
+    /* Equivalent to w-full in Tailwind */
+    margin-bottom: 16px;
+    /* Equivalent to mb-4 in Tailwind */
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    background-color: #3b82f6;
+    /* Equivalent to bg-blue-500 in Tailwind */
+    color: #ffffff;
+    /* Equivalent to text-white in Tailwind */
+    border-radius: 4px;
+    /* Equivalent to rounded in Tailwind */
+    transition: background-color 0.2s ease;
+}
+
+.add-task-button:hover {
+    background-color: #2563eb;
+    /* Equivalent to hover:bg-blue-600 in Tailwind */
+}
+
+/* Footer */
+.calendar-footer {
+    flex-shrink: 0;
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    background-color: #f3f4f6;
+    /* Equivalent to bg-gray-100 in Tailwind */
+}
+
+/* Grid container for form elements in AddTaskModal */
+.grid {
+    display: grid;
+    gap: 16px;
+    /* Equivalent to gap-4 in Tailwind */
+    padding: 16px 0;
+    /* Equivalent to py-4 in Tailwind */
+}
+
+/* Dialog Actions */
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Footer container styles */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    border-top: 1px solid #ddd;
+    /* Equivalent to border-t in Tailwind */
+}
+
+/* Container for GeneratedSchedules */
+.generated-schedules-container {
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    border-top: 1px solid #ddd;
+    /* Equivalent to border-t in Tailwind */
+}
+
+/* Heading styles for schedules */
+.generated-schedules-heading {
+    font-size: 1.125rem;
+    /* Equivalent to text-lg in Tailwind */
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+    margin-bottom: 8px;
+    /* Equivalent to mb-2 in Tailwind */
+}
+
+/* List item styling for schedules */
+.generated-schedule-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    background-color: #f3f4f6;
+    /* Equivalent to bg-gray-100 in Tailwind */
+    border-radius: 8px;
+    /* Equivalent to rounded in Tailwind */
+    margin-bottom: 8px;
+    /* To add space between list items */
+}
+
+/* Additional spacing for the list */
+.generated-schedules-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Modal content spacing */
+.schedule-details {
+    margin-top: 8px;
+    /* Equivalent to mt-2 in Tailwind */
+}
+
+/* Header container styling */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+    border-bottom: 1px solid #ddd;
+    /* Equivalent to border-b in Tailwind */
+}
+
+/* Heading styles */
+.header-title {
+    font-size: 1.5rem;
+    /* Equivalent to text-2xl in Tailwind */
+    font-weight: bold;
+    /* Equivalent to font-bold in Tailwind */
+}
+
+/* Avatar and button group */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    /* Equivalent to space-x-4 in Tailwind */
+}
+
+/* Icon inside the button */
+.header-icon {
+    height: 16px;
+    /* Equivalent to h-4 in Tailwind */
+    width: 16px;
+    /* Equivalent to w-4 in Tailwind */
+}
+
+/* Main calendar container */
+.calendar-container {
+    overflow-x: auto;
+}
+
+/* Calendar grid layout */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: auto repeat(7, 1fr);
+    gap: 1px;
+    /* Equivalent to gap-px in Tailwind */
+    background-color: #e5e7eb;
+    /* Equivalent to bg-gray-200 in Tailwind */
+    min-width: 800px;
+    /* Equivalent to min-w-[800px] in Tailwind */
+}
+
+/* Time label container */
+.time-label {
+    background-color: #fff;
+    /* Equivalent to bg-white in Tailwind */
+}
+
+.time-label-item {
+    height: 30px;
+    /* Equivalent to h-[30px] in Tailwind */
+    padding: 0 8px;
+    /* Equivalent to px-2 in Tailwind */
+    font-size: 0.75rem;
+    /* Equivalent to text-xs in Tailwind */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Day column container */
+.day-column {
+    position: relative;
+    background-color: #fff;
+    /* Equivalent to bg-white in Tailwind */
+}
+
+.day-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #fff;
+    /* Equivalent to bg-white in Tailwind */
+    border-bottom: 1px solid #d1d5db;
+    /* Equivalent to border-b in Tailwind */
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    text-align: center;
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+}
+
+/* Task droppable area */
+.droppable-area {
+    height: 1440px;
+    /* Equivalent to h-[1440px] in Tailwind */
+    position: relative;
+}
+
+/* Task item */
+.task-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 4px;
+    /* Equivalent to p-1 in Tailwind */
+    margin: 1px;
+    /* Equivalent to m-[1px] in Tailwind */
+    border-radius: 4px;
+    /* Equivalent to rounded in Tailwind */
+    font-size: 0.75rem;
+    /* Equivalent to text-xs in Tailwind */
+    overflow: hidden;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    /* Equivalent to shadow in Tailwind */
+}
+
+/* Task item colors for static and dynamic tasks */
+.task-item.static {
+    background-color: #3b82f6;
+    /* Equivalent to bg-blue-500 in Tailwind */
+    color: #fff;
+    /* Equivalent to text-white in Tailwind */
+    border: 1px solid #2563eb;
+    /* Equivalent to border-blue-700 in Tailwind */
+}
+
+.task-item.dynamic {
+    background-color: #10b981;
+    /* Equivalent to bg-green-500 in Tailwind */
+    color: #fff;
+    /* Equivalent to text-white in Tailwind */
+    border: 1px solid #047857;
+    /* Equivalent to border-green-700 in Tailwind */
+}
+
+/* Task text styles */
+.task-title {
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-time {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Side calendar container */
+.side-calendar {
+    width: 100%;
+    max-width: 280px;
+    background-color: #fff;
+    /* Equivalent to bg-white in Tailwind */
+    border-radius: 8px;
+    /* Equivalent to rounded-lg in Tailwind */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Equivalent to shadow-md in Tailwind */
+    padding: 16px;
+    /* Equivalent to p-4 in Tailwind */
+}
+
+/* Calendar header */
+.side-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    /* Equivalent to mb-4 in Tailwind */
+}
+
+/* Calendar navigation buttons */
+.calendar-nav-button {
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    background-color: #e5e7eb;
+    /* Equivalent to bg-gray-200 in Tailwind */
+    border-radius: 4px;
+    /* Equivalent to rounded in Tailwind */
+    transition: background-color 0.2s ease;
+    /* Equivalent to transition-all duration-200 in Tailwind */
+}
+
+.calendar-nav-button:hover {
+    background-color: #d1d5db;
+    /* Equivalent to hover:bg-gray-300 in Tailwind */
+}
+
+/* Calendar month title */
+.calendar-month-title {
+    font-size: 1.125rem;
+    /* Equivalent to text-lg in Tailwind */
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+    text-align: center;
+}
+
+/* Weekday labels */
+.weekday-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    color: #6b7280;
+    /* Equivalent to text-gray-500 in Tailwind */
+    font-weight: 500;
+    /* Equivalent to font-medium in Tailwind */
+    margin-bottom: 8px;
+    /* Equivalent to mb-2 in Tailwind */
+}
+
+/* Days grid */
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    /* Equivalent to gap-1 in Tailwind */
+}
+
+/* Individual day button */
+.day-button {
+    width: 40px;
+    /* Equivalent to w-10 in Tailwind */
+    height: 40px;
+    /* Equivalent to h-10 in Tailwind */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /* Equivalent to rounded-full in Tailwind */
+    transition: all 0.2s ease;
+    /* Equivalent to transition-all duration-200 in Tailwind */
+}
+
+/* Styles for selected date */
+.day-button.selected {
+    background-color: #3b82f6;
+    /* Equivalent to bg-blue-500 in Tailwind */
+    color: #fff;
+    /* Equivalent to text-white in Tailwind */
+}
+
+/* Styles for days in the current month */
+.day-button.current-month {
+    color: #111827;
+    /* Equivalent to text-gray-900 in Tailwind */
+}
+
+.day-button.current-month:hover {
+    background-color: #e5e7eb;
+    /* Equivalent to hover:bg-gray-200 in Tailwind */
+}
+
+/* Styles for days outside the current month */
+.day-button.outside-month {
+    color: #d1d5db;
+    /* Equivalent to text-gray-300 in Tailwind */
+}
+
+/* Task list container */
+.task-list-container {
+    margin-top: 16px;
+    /* Equivalent to mt-4 in Tailwind */
+}
+
+/* Task list heading */
+.task-list-heading {
+    font-size: 1.125rem;
+    /* Equivalent to text-lg in Tailwind */
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+    margin-bottom: 16px;
+    /* Equivalent to mb-4 in Tailwind */
+}
+
+/* Input and button container */
+.task-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    /* Equivalent to mb-4 in Tailwind */
+}
+
+/* Input field for new task */
+.task-input {
+    flex: 1;
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    border: 1px solid #d1d5db;
+    /* Equivalent to border in Tailwind */
+    border-radius: 4px 0 0 4px;
+    /* Equivalent to rounded-l in Tailwind */
+}
+
+/* Button for adding task */
+.add-task-button {
+    border-radius: 0 4px 4px 0;
+    /* Equivalent to rounded-l-none in Tailwind */
+}
+
+/* Individual task item */
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f3f4f6;
+    /* Equivalent to bg-gray-100 in Tailwind */
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    margin-bottom: 8px;
+    /* Equivalent to mb-2 in Tailwind */
+    border-radius: 4px;
+    /* Equivalent to rounded in Tailwind */
+}
+
+/* Completed task styles */
+.task-item.completed {
+    text-decoration: line-through;
+    /* Equivalent to line-through in Tailwind */
+    color: #9ca3af;
+    /* Equivalent to text-gray-500 in Tailwind */
+}
+
+/* Task name (toggleable) */
+.task-name {
+    cursor: pointer;
+    flex: 1;
+}
+
+/* Delete button */
+.delete-task-button {
+    color: #ef4444;
+    /* Equivalent to text-red-500 in Tailwind */
+    transition: color 0.2s ease;
+}
+
+.delete-task-button:hover {
+    color: #dc2626;
+    /* Equivalent to hover:text-red-700 in Tailwind */
+}
+
+/* Message when no tasks are available */
+.no-tasks-message {
+    color: #9ca3af;
+    /* Equivalent to text-gray-500 in Tailwind */
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+}
+
+/* Upcoming Events container */
+.upcoming-events-container {
+    margin-top: 24px;
+    /* Equivalent to mt-6 in Tailwind */
+}
+
+/* Header section for Upcoming Events */
+.upcoming-events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    /* Equivalent to mb-4 in Tailwind */
+}
+
+/* Header title */
+.upcoming-events-title {
+    font-size: 1.125rem;
+    /* Equivalent to text-lg in Tailwind */
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+}
+
+/* Add Event button */
+.add-event-button {
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+}
+
+/* Empty state message */
+.empty-events-message {
+    color: #9ca3af;
+    /* Equivalent to text-gray-500 in Tailwind */
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+}
+
+/* Events list */
+.events-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 8px;
+    /* Equivalent to space-y-2 in Tailwind */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Individual event item */
+.event-item {
+    background-color: #f3f4f6;
+    /* Equivalent to bg-gray-100 in Tailwind */
+    padding: 12px;
+    /* Equivalent to p-3 in Tailwind */
+    border-radius: 8px;
+    /* Equivalent to rounded in Tailwind */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Equivalent to shadow in Tailwind */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Event name */
+.event-name {
+    font-weight: 500;
+    /* Equivalent to font-medium in Tailwind */
+}
+
+/* Event date */
+.event-date {
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+    color: #4b5563;
+    /* Equivalent to text-gray-600 in Tailwind */
+}
+
+/* Remove button */
+.remove-event-button {
+    color: #ef4444;
+    /* Equivalent to text-red-500 in Tailwind */
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+    transition: color 0.2s ease;
+}
+
+.remove-event-button:hover {
+    color: #dc2626;
+    /* Equivalent to hover:text-red-700 in Tailwind */
+}
+
+/* Voice prompt container */
+.voice-prompt-container {
+    margin-top: 16px;
+    /* Equivalent to mt-4 in Tailwind */
+}
+
+/* Listening message */
+.listening-message {
+    margin-top: 8px;
+    /* Equivalent to mt-2 in Tailwind */
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+}
+
+/* Error message */
+.error-message {
+    margin-top: 8px;
+    /* Equivalent to mt-2 in Tailwind */
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+    color: #ef4444;
+    /* Equivalent to text-red-500 in Tailwind */
+}
+
+/* Transcript container */
+.transcript-container {
+    margin-top: 8px;
+    /* Equivalent to mt-2 in Tailwind */
+    padding: 8px;
+    /* Equivalent to p-2 in Tailwind */
+    background-color: #f3f4f6;
+    /* Equivalent to bg-gray-100 in Tailwind */
+    border-radius: 4px;
+    /* Equivalent to rounded in Tailwind */
+}
+
+/* Transcript heading */
+.transcript-heading {
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+    font-weight: 600;
+    /* Equivalent to font-semibold in Tailwind */
+}
+
+/* Transcript text */
+.transcript-text {
+    font-size: 0.875rem;
+    /* Equivalent to text-sm in Tailwind */
+}

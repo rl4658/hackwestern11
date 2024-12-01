@@ -1,39 +1,66 @@
-import { useState } from 'react';
-import { Header } from './header';
-import { MainCalendar } from './main-calendar';
-import { SideCalendar } from './side-calendar';
-import { TaskList } from './tasks-lists';
-import { VoicePrompt } from './voice-prompt';
-import { AddTaskModal } from './add-tasks-modal';
-import { GeneratedSchedules } from './generated-schedules';
-import { Footer } from './calendar-footer';
-import { Button } from  "@mui/material";
-import { UpcomingEvents } from './upcoming-events';
+"use client";
+
+import { useState } from "react";
+import Header from "./header";
+import MainCalendar from "./main-calendar";
+import SideCalendar from "./side-calendar";
+import TaskList from "./tasks-lists";
+import VoicePrompt from "./voice-prompt";
+import AddTaskModel from "./add-tasks-modal";
+import UpcomingEvents from "./upcoming-events";
+import Footer from "./calendar-footer";
+import "../css/calendar.css";
 
 export default function CalendarApp() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
   return (
-    <div className="flex flex-col h-screen">
-      <Header />
-      <div className="flex flex-1 overflow-hidden">
-        <div className="w-64 p-4 border-r overflow-auto">
-          <SideCalendar selectedDate={selectedDate} onDateSelect={setSelectedDate} />
-          <UpcomingEvents />
-        </div>
-        <div className="flex-1 overflow-auto">
-          <MainCalendar selectedDate={selectedDate} onDateSelect={setSelectedDate} />
-        </div>
-        <div className="w-64 p-4 border-l overflow-auto">
-          <Button onClick={() => setIsAddTaskModalOpen(true)} className="w-full mb-4">Add Task</Button>
+    <div className="calendar-app">
+      {/* Header */}
+      <Header className="calendar-header" />
+
+      <div className="calendar-content">
+        {/* Left Sidebar */}
+        <aside className="left-sidebar">
+          <SideCalendar
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+          />
+          <div className="upcoming-events-wrapper">
+            <UpcomingEvents />
+          </div>
+        </aside>
+
+        {/* Main Calendar */}
+        <main className="main-calendar">
+          <MainCalendar
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+          />
+        </main>
+
+        {/* Right Sidebar */}
+        <aside className="right-sidebar">
+          <button
+            onClick={() => setIsAddTaskModalOpen(true)}
+            className="add-task-button"
+          >
+            Add Task
+          </button>
           <TaskList />
           <VoicePrompt />
-        </div>
+        </aside>
       </div>
-      <GeneratedSchedules />
-      <Footer />
-      <AddTaskModal isOpen={isAddTaskModalOpen} onClose={() => setIsAddTaskModalOpen(false)} />
+
+      {/* Footer */}
+      <Footer className="calendar-footer" />
+
+      {/* Task Modal */}
+      <AddTaskModel
+        isOpen={isAddTaskModalOpen}
+        onClose={() => setIsAddTaskModalOpen(false)}
+      />
     </div>
   );
 }

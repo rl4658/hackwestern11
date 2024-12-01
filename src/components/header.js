@@ -1,16 +1,22 @@
-import React from 'react';
-import { Button, Avatar } from "@mui/material";
-import { FolderSync } from 'lucide-react';
+import React from "react";
+import Button from "./ui/button"; // Fixed Button import path
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"; // Fixed Avatar import path
+import { FolderSync } from "lucide-react"; // Ensure lucide-react is installed
+import "../css/calendar.css";
 
-export function Header() {
+export default function Header() {
+  // Changed to default export for easier imports
   return (
-    <header className="flex items-center justify-between p-4 border-b">
-      <h1 className="text-2xl font-bold">AI Scheduler</h1>
-      <div className="flex items-center space-x-4">
-        <Button variant="outlined" size="small">
-          <FolderSync className="h-4 w-4" />
+    <header className="header-container">
+      <h1 className="header-title">AI Scheduler</h1>
+      <div className="header-actions">
+        <Button variant="outline" size="icon">
+          <FolderSync className="header-icon" />
         </Button>
-        <Avatar alt="@shadcn" src="https://github.com/shadcn.png" />
+        <Avatar>
+          {/* <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+          <AvatarFallback>CN</AvatarFallback> */}
+        </Avatar>
       </div>
     </header>
   );

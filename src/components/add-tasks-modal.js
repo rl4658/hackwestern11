@@ -1,13 +1,23 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle, DialogActions, Button, TextField, FormControlLabel, Switch } from '@mui/material';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogActions,
+  Button,
+  TextField,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
+import "../css/calendar.css";
 
 export function AddTaskModal({ isOpen, onClose }) {
-  const [taskName, setTaskName] = useState('');
-  const [taskDate, setTaskDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [taskName, setTaskName] = useState("");
+  const [taskDate, setTaskDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
   const [isStatic, setIsStatic] = useState(false);
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +30,7 @@ export function AddTaskModal({ isOpen, onClose }) {
       <DialogTitle>Add New Task</DialogTitle>
       <DialogContent>
         <form onSubmit={handleSubmit}>
-          <div className="grid gap-4 py-4">
+          <div className="grid">
             <TextField
               id="task-name"
               label="Task Name"
@@ -60,7 +70,12 @@ export function AddTaskModal({ isOpen, onClose }) {
               InputLabelProps={{ shrink: true }}
             />
             <FormControlLabel
-              control={<Switch checked={isStatic} onChange={(e) => setIsStatic(e.target.checked)} />}
+              control={
+                <Switch
+                  checked={isStatic}
+                  onChange={(e) => setIsStatic(e.target.checked)}
+                />
+              }
               label="Static Task"
             />
             <TextField
@@ -74,9 +89,11 @@ export function AddTaskModal({ isOpen, onClose }) {
               rows={4}
             />
           </div>
-          <DialogActions>
+          <DialogActions className="dialog-actions">
             <Button onClick={onClose}>Cancel</Button>
-            <Button type="submit" variant="contained">Add Task</Button>
+            <Button type="submit" variant="contained">
+              Add Task
+            </Button>
           </DialogActions>
         </form>
       </DialogContent>
