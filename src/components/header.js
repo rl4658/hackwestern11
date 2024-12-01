@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./ui/button"; // Fixed Button import path
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"; // Fixed Avatar import path
+import { Avatar } from "./ui/avatar"; // Fixed Avatar import path
 import { FolderSync } from "lucide-react"; // Ensure lucide-react is installed
 import "../css/calendar.css";
 

@@ -1,0 +1,53 @@
+/* downloadOptions.css */
+
+.download-options-section {
+    padding: 4rem 0;
+    background-color: #f9fafb;
+    /* Light gray background to add visual separation */
+  }
+  
+  .download-options-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .download-options-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 3rem;
+    color: #1f2937;
+    /* Darker color for high contrast */
+    text-align: center;
+  }
+  
+  .download-options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  
+  .download-option-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #3b82f6;
+    color: #ffffff;
+  }
+  
+  .download-option-button:hover {
+    background-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .download-option-icon {
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    margin-right: 0.5rem;
+    /* Ensure icons are visible and have proper spacing */
+  }
+  
