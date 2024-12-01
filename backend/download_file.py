@@ -16,7 +16,7 @@ def download_file():
         response = send_file(
             FILE_PATH,
             as_attachment=True,
-            attachment_filename="your_schedule.csv",  # Suggest filename for the download
+            download_name="your_schedule.csv",  # Updated parameter for Flask >= 2.0
             mimetype='text/csv'  # MIME type for CSV files
         )
         return response
@@ -24,3 +24,6 @@ def download_file():
         return jsonify({"error": "File not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
