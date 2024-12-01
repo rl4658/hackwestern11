@@ -7,10 +7,24 @@
     "TaskDescription": "None"
   },
   {
+    "TaskName": "Basketball",
+    "TaskStartTime": "2024-11-25 06:00:00+00:00",
+    "TaskEndTime": "2024-11-25 07:00:00+00:00",
+    "TaskLocation": "Gym",
+    "TaskDescription": "None"
+  },
+  {
     "TaskName": "workshift",
     "TaskStartTime": "2024-11-26 06:15:00+00:00",
     "TaskEndTime": "2024-11-26 11:45:00+00:00",
     "TaskLocation": "None",
+    "TaskDescription": "None"
+  },
+  {
+    "TaskName": "Basketball",
+    "TaskStartTime": "2024-11-26 12:00:00+00:00",
+    "TaskEndTime": "2024-11-26 13:00:00+00:00",
+    "TaskLocation": "Gym",
     "TaskDescription": "None"
   },
   {
@@ -21,59 +35,10 @@
     "TaskDescription": "None"
   },
   {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-24T14:00:00+00:00",
-    "TaskEndTime": "2024-11-24T15:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-25T14:00:00+00:00",
-    "TaskEndTime": "2024-11-25T15:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-26T12:00:00+00:00",
-    "TaskEndTime": "2024-11-26T13:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-27T14:00:00+00:00",
-    "TaskEndTime": "2024-11-27T15:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-28T13:00:00+00:00",
-    "TaskEndTime": "2024-11-28T14:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-29T14:00:00+00:00",
-    "TaskEndTime": "2024-11-29T15:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Study",
-    "TaskStartTime": "2024-11-30T14:00:00+00:00",
-    "TaskEndTime": "2024-11-30T15:00:00+00:00",
-    "TaskLocation": "None",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Reading",
-    "TaskStartTime": "2024-11-25T16:00:00+00:00",
-    "TaskEndTime": "2024-11-25T18:00:00+00:00",
-    "TaskLocation": "None",
+    "TaskName": "Basketball",
+    "TaskStartTime": "2024-11-29 06:00:00+00:00",
+    "TaskEndTime": "2024-11-29 07:00:00+00:00",
+    "TaskLocation": "Gym",
     "TaskDescription": "None"
   }
 ]

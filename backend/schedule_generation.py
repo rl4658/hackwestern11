@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def write_to_file():
     """
@@ -75,7 +74,7 @@ def create_schedule_assistant():
             "Given a CSV file with current schedule data as well as a user's natural language request, provide five non-overlapping possible schedules based on the request, ensuring variety in the structure of each proposed schedule, so that the user has different options to consider.\n\n"
             "# Steps\n\n"
             "1. Accept the CSV data and read the content.\n"
-            "2. Interpret the user's request and think about each individual schedule generate five meaningfully different schedules that do not overlap with existing events.\n"
+            "2. Interpret the user's request and think about each individual schedule generate five meaningfully different schedules that do not overlap with existing events and have the users events as well.\n"
             "3. Save the generated data into five new modified CSV files named `schedule_option_1.csv`, `schedule_option_2.csv`, `schedule_option_3.csv`, `schedule_option_4.csv`, and `schedule_option_5.csv`.\n"
             "4. Allow the user to download all five updated CSV files.\n\n"
             "# Output Format\n\n"
@@ -88,10 +87,11 @@ def create_schedule_assistant():
             "# Notes\n\n"
             "- Each of the five schedules must be distinct and non-overlapping, providing meaningful options (e.g., different timings, location changes, different arrangements) to the user.\n"
             "- Ensure that the modification process is clearly communicated to the user, and that any errors during manipulation are presented with clear instructions on how to correct them.\n"
-            "- Never re-query or retrieve new schedule data from other sources; only use the provided CSV for modifications."
+            "- Never re-query or retrieve new schedule data from other sources; only use the provided CSV file and the user's request to generate the five schedules.\n"
         ),
+        temperature=0.1,
         tools=[{"type": "code_interpreter"}],
-        model="gpt-4-turbo"
+        model="gpt-4o",
     )
 
     return assistant, file
@@ -147,4 +147,3 @@ def process_schedule_request(query):
             client.beta.assistants.delete(assistant.id)
         if input_file is not None:
             client.files.delete(input_file.id)
-

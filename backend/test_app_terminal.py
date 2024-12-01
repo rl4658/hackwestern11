@@ -8,7 +8,7 @@ def test_process_query():
     # Set up the test client for the Flask app
     with app.test_client() as client:
         # Sample query to send to the endpoint
-        test_query = {"query": "Schedule a meeting with John at 2pm tomorrow. And I want to study for school 1 hour every day this week."}
+        test_query = {"query": "I want to play basketball for 1 hour on monday tuesday and friday"}
 
         # Send POST request to the endpoint
         response = client.post('/process_query', json=test_query)
@@ -48,6 +48,3 @@ def test_process_query_no_query():
 if __name__ == '__main__':
     print("Running test for valid query...")
     test_process_query()
-
-    print("\nRunning test for missing query...")
-    test_process_query_no_query()
