@@ -1,3 +1,5 @@
+// src/components/Schedule/GeneratedSchedules.js
+
 import React from 'react';
 
 export default function GeneratedSchedules({ schedules, onSelectSchedule }) {
@@ -6,7 +8,7 @@ export default function GeneratedSchedules({ schedules, onSelectSchedule }) {
             <div className="grid grid-cols-5 gap-2 p-2">
                 {schedules.map((schedule, index) => (
                     <div
-                        key={index}
+                        key={schedule.id}
                         className="border rounded p-2 cursor-pointer hover:bg-gray-100"
                         onClick={() => onSelectSchedule(schedule)}
                     >
