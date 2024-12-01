@@ -17,7 +17,9 @@ export function parseJsonSchedule(jsonString) {
 }
 
 // Helper function to convert tasks into schedule format
-function convertTasksToSchedule(tasks) {
+// src/components/Schedule/utils/ScheduleUtils.js
+
+export function convertTasksToSchedule(tasks) {
     const schedule = {};
     tasks.forEach((task) => {
         const startDate = new Date(task.TaskStartTime);
@@ -37,6 +39,8 @@ function convertTasksToSchedule(tasks) {
     });
     return schedule;
 }
+
+
 
 
 export function generateScheduleFromPrompt(prompt) {
