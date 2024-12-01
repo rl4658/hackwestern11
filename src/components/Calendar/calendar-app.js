@@ -6,6 +6,7 @@ import MainCalendar from "./main-calendar";
 import SideCalendar from "./side-calendar";
 import AddTaskModal from "./add-tasks-modal";
 import UpcomingEvents from "./upcoming-events";
+import NoteSection from "./note-section";
 import "../../css/calendar.css";
 
 export default function CalendarApp() {
@@ -52,6 +53,8 @@ export default function CalendarApp() {
           >
             Add Task
           </button>
+          {/* Note Section */}
+          <NoteSection />
         </aside>
       </div>
 
