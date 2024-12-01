@@ -8,7 +8,7 @@ import {
   isSameMonth,
   isSameDay,
 } from "date-fns";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export default function SideCalendar({ selectedDate, onDateSelect }) {
   const [currentMonth, setCurrentMonth] = useState(startOfMonth(selectedDate));

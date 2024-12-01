@@ -10,7 +10,7 @@ import {
   setMinutes,
 } from "date-fns";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 const MINUTES_IN_DAY = 24 * 60;
 

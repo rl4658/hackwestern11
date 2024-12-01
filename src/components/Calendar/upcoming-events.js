@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import Button from "./ui/button";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export function UpcomingEvents() {
   const [events, setEvents] = useState([]);

@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from UserQuery import UserQuery
-from schedule_generation import process_schedule_request
+from schedule_generation import process_schedule_request, write_to_file
 from convert_csv_json import csv_to_json
 import os
 
@@ -21,6 +21,8 @@ def process_query():
 
     # Process the query to generate schedule CSVs
     process_schedule_request(query)
+
+    write_to_file()
 
     # Directory where the CSVs are saved
     csv_directory = 'possible_schedule_csv'

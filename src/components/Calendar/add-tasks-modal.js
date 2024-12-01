@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export function AddTaskModal({ isOpen, onClose }) {
   const [taskName, setTaskName] = useState("");
