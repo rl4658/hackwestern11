@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from UserQuery import UserQuery
 from schedule_generation import process_schedule_request, write_to_file
 from convert_csv_json import csv_to_json
 import os
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/process_query', methods=['POST'])
 def process_query():
