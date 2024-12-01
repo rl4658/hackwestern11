@@ -1,12 +1,11 @@
-"use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import Header from "./header";
 import MainCalendar from "./main-calendar";
 import SideCalendar from "./side-calendar";
 import AddTaskModal from "./add-tasks-modal";
 import UpcomingEvents from "./upcoming-events";
 import NoteSection from "./note-section";
+import VoiceFlowChat from "./voice-flow";
 import "../../css/calendar.css";
 
 export default function CalendarApp() {
@@ -55,6 +54,8 @@ export default function CalendarApp() {
           </button>
           {/* Note Section */}
           <NoteSection />
+          {/* VoiceFlow Chat */}
+          <VoiceFlowChat /> {/* Place the chat widget here */}
         </aside>
       </div>
 
