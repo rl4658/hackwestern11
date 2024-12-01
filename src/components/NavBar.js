@@ -32,9 +32,9 @@ const NavBar = () => {
 
   const logoutWithRedirect = () =>
     logout({
-        logoutParams: {
-          returnTo: window.location.origin,
-        }
+      logoutParams: {
+        returnTo: window.location.origin,
+      }
     });
 
   return (
@@ -76,6 +76,18 @@ const NavBar = () => {
                     activeClassName="router-link-exact-active"
                   >
                     Your Calendar
+                  </NavLink>
+                </NavItem>
+              )}
+              {isAuthenticated && (
+                <NavItem>
+                  <NavLink
+                    tag={RouterNavLink}
+                    to="/generate-calendar"
+                    exact
+                    activeClassName="router-link-exact-active"
+                  >
+                    Generate Calendar
                   </NavLink>
                 </NavItem>
               )}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "./ui/button"; // Fixed import for Button
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog"; // Fixed import for Dialog components
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export default function GeneratedSchedules() {
     const [schedules, setSchedules] = useState([]); // Replace with actual schedules if needed

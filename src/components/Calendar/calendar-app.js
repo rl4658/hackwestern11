@@ -9,7 +9,7 @@ import VoicePrompt from "./voice-prompt";
 import AddTaskModel from "./add-tasks-modal";
 import UpcomingEvents from "./upcoming-events";
 import Footer from "./calendar-footer";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export default function CalendarApp() {
   const [selectedDate, setSelectedDate] = useState(new Date());

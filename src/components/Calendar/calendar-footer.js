@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./ui/button";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export function Footer() {
   const generateSchedule = () => {

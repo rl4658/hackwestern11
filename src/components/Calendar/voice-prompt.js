@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Button from "./ui/button";
 import { Mic, MicOff } from "lucide-react";
-import "../css/calendar.css";
+import "../../css/calendar.css";
 
 export function VoicePrompt() {
   const [isListening, setIsListening] = useState(false);
