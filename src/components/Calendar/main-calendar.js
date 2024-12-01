@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
+  differenceInMinutes,
   format,
   addDays,
   startOfWeek,
-  differenceInMinutes,
   setHours,
   setMinutes,
 } from "date-fns";
@@ -14,66 +13,38 @@ import "../../css/calendar.css";
 
 const MINUTES_IN_DAY = 24 * 60;
 
-function MainCalendar({ selectedDate, onDateSelect }) {
-  const [tasks, setTasks] = useState([]);
+function MainCalendar({ tasks, selectedDate, onDateSelect }) {
   const weekStart = startOfWeek(selectedDate);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   const timeSlots = Array.from({ length: 48 }, (_, i) => i * 30); // 48 half-hour slots
 
-  useEffect(() => {
-    const sampleTasks = [
-      {
-        id: "1",
-        name: "Morning Meeting",
-        start: setMinutes(setHours(new Date(selectedDate), 9), 0),
-        end: setMinutes(setHours(new Date(selectedDate), 10), 30),
-        isStatic: true,
-      },
-      {
-        id: "2",
-        name: "Lunch Break",
-        start: setMinutes(setHours(new Date(selectedDate), 12), 0),
-        end: setMinutes(setHours(new Date(selectedDate), 13), 0),
-        isStatic: false,
-      },
-      {
-        id: "3",
-        name: "Project Work",
-        start: setMinutes(setHours(new Date(selectedDate), 14), 0),
-        end: setMinutes(setHours(new Date(selectedDate), 17), 30),
-        isStatic: false,
-      },
-    ];
-    setTasks(sampleTasks);
-  }, [selectedDate]);
-
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    const updatedTasks = Array.from(tasks);
-    const [reorderedTask] = updatedTasks.splice(result.source.index, 1);
-    updatedTasks.splice(result.destination.index, 0, reorderedTask);
-
-    setTasks(updatedTasks);
+    // Add optional logic to handle drag-and-drop (if needed for dynamic tasks)
   };
 
-  const getTaskPosition = (task, index) => {
-    const startOfDay = setMinutes(setHours(new Date(task.start), 0), 0);
-    const taskStart = differenceInMinutes(task.start, startOfDay);
-    const taskDuration = differenceInMinutes(task.end, task.start);
+  const getTaskPosition = (task) => {
+    const startOfDay = setMinutes(setHours(new Date(task.date), 0), 0);
+    const taskStart = differenceInMinutes(
+      setMinutes(setHours(new Date(task.date), task.startTime.split(":")[0]), task.startTime.split(":")[1]),
+      startOfDay
+    );
+    const taskDuration = differenceInMinutes(
+      setMinutes(setHours(new Date(task.date), task.endTime.split(":")[0]), task.endTime.split(":")[1]),
+      setMinutes(setHours(new Date(task.date), task.startTime.split(":")[0]), task.startTime.split(":")[1])
+    );
     const top = (taskStart / MINUTES_IN_DAY) * 100;
     const height = (taskDuration / MINUTES_IN_DAY) * 100;
 
-    const left = `${index * 10}%`;
-    const width = `calc(100% - ${index * 10}%)`;
-
-    return { top: `${top}%`, height: `${height}%`, left, width };
+    return { top: `${top}%`, height: `${height}%` };
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="calendar-container">
         <div className="calendar-grid">
+          {/* Time Labels */}
           <div className="time-label">
             {timeSlots.map((minutes) => (
               <div key={minutes} className="time-label-item">
@@ -81,11 +52,11 @@ function MainCalendar({ selectedDate, onDateSelect }) {
               </div>
             ))}
           </div>
+
+          {/* Week Columns */}
           {weekDays.map((day) => (
             <div key={day.toISOString()} className="day-column">
-              <div className="day-header">
-                {format(day, "EEE dd/MM")}
-              </div>
+              <div className="day-header">{format(day, "EEE dd/MM")}</div>
               <Droppable droppableId={format(day, "yyyy-MM-dd")}>
                 {(provided) => (
                   <div
@@ -93,11 +64,12 @@ function MainCalendar({ selectedDate, onDateSelect }) {
                     {...provided.droppableProps}
                     className="droppable-area"
                   >
+                    {/* Render Tasks */}
                     {tasks
                       .filter(
                         (task) =>
-                          format(task.start, "yyyy-MM-dd") ===
-                          format(day, "yyyy-MM-dd"),
+                          format(new Date(task.date), "yyyy-MM-dd") ===
+                          format(day, "yyyy-MM-dd")
                       )
                       .map((task, index) => (
                         <Draggable
@@ -113,15 +85,20 @@ function MainCalendar({ selectedDate, onDateSelect }) {
                               className={`task-item ${task.isStatic ? "static" : "dynamic"
                                 }`}
                               style={{
-                                ...getTaskPosition(task, index),
+                                ...getTaskPosition(task),
                                 ...provided.draggableProps.style,
                               }}
                             >
-                              <div className="task-title">{task.name}</div>
-                              <div className="task-time">
-                                {format(task.start, "HH:mm")} -{" "}
-                                {format(task.end, "HH:mm")}
+                              <div
+                                className="task-title"
+                                style={{ backgroundColor: task.color }}
+                              >
+                                {task.name}
                               </div>
+                              <div className="task-time">
+                                {task.startTime} - {task.endTime}
+                              </div>
+                              <div className="task-note">{task.note}</div>
                             </div>
                           )}
                         </Draggable>

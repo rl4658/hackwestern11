@@ -63,27 +63,29 @@ export function VoicePrompt() {
   };
 
   return (
-    <div className="voice-prompt-container">
-      <Button
-        onClick={toggleListening}
-        variant={isListening ? "destructive" : "default"}
-      >
-        {isListening ? (
-          <MicOff className="mr-2 h-4 w-4" />
-        ) : (
-          <Mic className="mr-2 h-4 w-4" />
-        )}
-        {isListening ? "Stop Listening" : "Start Voice Input"}
-      </Button>
-      {isListening && <p className="listening-message">Listening...</p>}
-      {error && <p className="error-message">Error: {error}</p>}
-      {transcript && (
-        <div className="transcript-container">
-          <h3 className="transcript-heading">Transcript:</h3>
-          <p className="transcript-text">{transcript}</p>
-        </div>
-      )}
-    </div>
+    <>
+    </>
+    // <div className="voice-prompt-container">
+    //   <Button
+    //     onClick={toggleListening}
+    //     variant={isListening ? "destructive" : "default"}
+    //   >
+    //     {isListening ? (
+    //       <MicOff className="mr-2 h-4 w-4" />
+    //     ) : (
+    //       <Mic className="mr-2 h-4 w-4" />
+    //     )}
+    //     {isListening ? "Stop Listening" : "Start Voice Input"}
+    //   </Button>
+    //   {isListening && <p className="listening-message">Listening...</p>}
+    //   {error && <p className="error-message">Error: {error}</p>}
+    //   {transcript && (
+    //     <div className="transcript-container">
+    //       <h3 className="transcript-heading">Transcript:</h3>
+    //       <p className="transcript-text">{transcript}</p>
+    //     </div>
+    //   )}
+    // </div>
   );
 }
 

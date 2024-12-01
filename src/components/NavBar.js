@@ -87,7 +87,7 @@ const NavBar = () => {
                     exact
                     activeClassName="router-link-exact-active"
                   >
-                    Generate Calendar
+                    AI Scheduler
                   </NavLink>
                 </NavItem>
               )}

@@ -1,3 +1,424 @@
+.note-section {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.note-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.note-toolbar {
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    gap: 0.5rem;
+    /* Add spacing between buttons */
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0.5rem;
+}
+
+.note-toolbar .ql-picker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Center the font picker dropdown */
+    height: 32px;
+    margin: 0;
+}
+
+.editor .note-editor {
+    height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: sans-serif;
+}
+
+.ql-toolbar .ql-formats {
+    display: flex;
+    align-items: center;
+    /* Align buttons vertically in the center */
+    gap: 0.5rem;
+    /* Add spacing between buttons */
+}
+
+.ql-toolbar .ql-picker {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+}
+
+.ql-container {
+    font-family: sans-serif;
+}
+
+.edit-task-form .delete {
+    background-color: #ef4444;
+    /* Red background for delete */
+    color: #fff;
+    /* White text */
+    font-size: 0.875rem;
+    /* Font size */
+    padding: 8px 16px;
+    /* Button size */
+    border-radius: 4px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor */
+    border: none;
+    /* No border */
+}
+
+.edit-task-form .delete:hover {
+    background-color: #dc2626;
+    /* Darker red on hover */
+}
+
+.edit-task-right-sidebar {
+    margin-top: 16px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.edit-task-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edit-task-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.edit-task-form {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.edit-task-form label {
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+.edit-task-form input,
+.edit-task-form textarea,
+.edit-task-form select {
+    width: 100%;
+    /* Ensures consistent width */
+    padding: 8px;
+    /* Uniform padding */
+    font-size: 0.875rem;
+    /* Consistent font size */
+    border: 1px solid #ddd;
+    /* Uniform border */
+    border-radius: 4px;
+    /* Rounded corners for a clean look */
+    background-color: #fff;
+    /* White background */
+    box-sizing: border-box;
+    /* Ensures padding is included in width */
+}
+
+.edit-task-form textarea {
+    grid-column: span 2;
+    resize: vertical;
+}
+
+.edit-task-form .time-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-task-form .time-input input {
+    flex: 1;
+}
+
+.edit-task-form .form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-task-form button {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-task-form button.cancel {
+    background-color: #e5e7eb;
+    color: #333;
+}
+
+.edit-task-form button.cancel:hover {
+    background-color: #d1d5db;
+}
+
+.edit-task-form button.save {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.edit-task-form button.save:hover {
+    background-color: #2563eb;
+}
+
+/* Picker Container */
+.picker-container {
+    position: fixed;
+    /* Ensure it's positioned based on viewport */
+    background-color: #fff;
+    /* White background */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    z-index: 1000;
+    /* Ensure visibility */
+    overflow: hidden;
+    width: 150px;
+    /* Fixed width for dropdown */
+    text-align: center;
+}
+
+/* Picker Button */
+.picker-button {
+    display: block;
+    /* Ensure buttons take the full width */
+    padding: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.picker-button:hover {
+    background-color: #f3f4f6;
+    /* Light gray on hover */
+}
+
+
+/* Active Button */
+.picker-button.active {
+    font-weight: bold;
+    color: #3b82f6;
+    /* Blue for active */
+}
+
+/* Month or Year Picker Arrow */
+.picker-arrow {
+    display: block;
+    padding: 4px;
+    font-size: 1.25rem;
+    color: #6b7280;
+    /* Gray color */
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.picker-arrow:hover {
+    color: #111827;
+    /* Darker gray on hover */
+}
+
+/* Side Calendar Container */
+.side-calendar {
+    width: 100%;
+    max-width: 280px;
+    /* Fixed width for consistent layout */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin: 16px auto;
+    /* Center calendar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    /* Ensure padding is accounted for */
+}
+
+/* Calendar Header */
+.side-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+    font-weight: bold;
+}
+
+/* Weekday Labels */
+.weekday-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Seven equal columns for days */
+    text-align: center;
+    color: #6b7280;
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    padding: 0;
+    width: 100%;
+}
+
+/* Days Grid */
+.side-calendar .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Align with weekdays */
+    gap: 2px;
+    /* Consistent spacing between days */
+    text-align: center;
+    /* width: 100%; */
+    /* Ensure grid spans the container */
+    justify-items: center;
+    /* Center the day numbers */
+    align-items: center;
+}
+
+/* Day Buttons */
+.side-calendar .day-button {
+    width: 30px;
+    /* Set fixed size */
+    height: 30px;
+    line-height: 36px;
+    /* Center text vertically */
+    border-radius: 50%;
+    background-color: transparent;
+    color: #111827;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Selected Day */
+.side-calendar .day-button.selected {
+    background-color: #3b82f6;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Hover Effect */
+.side-calendar .day-button:hover {
+    background-color: #e5e7eb;
+}
+
+/* Adjust Calendar Margins */
+.side-calendar {
+    padding: 16px;
+    margin: 16px auto;
+    /* Center and add spacing around the calendar */
+}
+
+/* Adjust Position for Side Calendar Header */
+/* .side-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+} */
+
+/* Picker Scrollable */
+.picker-scrollable {
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    max-height: 200px;
+    /* Limit height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+/* Side calendar header */
+/* .side-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+    position: relative;
+} */
+
+/* Side calendar container */
+/* .side-calendar {
+    width: 100%;
+    max-width: 280px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */
+
+/* Calendar header */
+/* .side-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+} */
+
+/* Calendar navigation buttons */
+/* .calendar-nav-button {
+    padding: 8px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+} */
+
+/* .calendar-nav-button:hover {
+    background-color: #d1d5db;
+} */
+
+/* Days grid */
+/* .days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    text-align: center;
+    align-items: center;
+} */
+
+/* Individual day button */
+/* .day-button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+} */
+
 /* Calendar app container */
 .calendar-app {
     display: flex;
@@ -8,6 +429,7 @@
 /* Header */
 .calendar-header {
     flex-shrink: 0;
+    font-size: 32px;
 }
 
 /* Content layout */
@@ -304,114 +726,89 @@
 }
 
 /* Side calendar container */
-.side-calendar {
+/* .side-calendar {
     width: 100%;
     max-width: 280px;
     background-color: #fff;
-    /* Equivalent to bg-white in Tailwind */
     border-radius: 8px;
-    /* Equivalent to rounded-lg in Tailwind */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* Equivalent to shadow-md in Tailwind */
     padding: 16px;
-    /* Equivalent to p-4 in Tailwind */
-}
+} */
 
 /* Calendar header */
-.side-calendar-header {
+/* .side-calendar-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 16px;
-    /* Equivalent to mb-4 in Tailwind */
-}
+} */
 
 /* Calendar navigation buttons */
-.calendar-nav-button {
+/* .calendar-nav-button {
     padding: 8px;
-    /* Equivalent to p-2 in Tailwind */
     background-color: #e5e7eb;
-    /* Equivalent to bg-gray-200 in Tailwind */
     border-radius: 4px;
-    /* Equivalent to rounded in Tailwind */
     transition: background-color 0.2s ease;
-    /* Equivalent to transition-all duration-200 in Tailwind */
-}
+} */
 
-.calendar-nav-button:hover {
+/* .calendar-nav-button:hover {
     background-color: #d1d5db;
-    /* Equivalent to hover:bg-gray-300 in Tailwind */
-}
+} */
 
 /* Calendar month title */
-.calendar-month-title {
+/* .calendar-month-title {
     font-size: 1.125rem;
-    /* Equivalent to text-lg in Tailwind */
     font-weight: 600;
-    /* Equivalent to font-semibold in Tailwind */
     text-align: center;
-}
+} */
 
 /* Weekday labels */
-.weekday-labels {
+/* .weekday-labels {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     color: #6b7280;
-    /* Equivalent to text-gray-500 in Tailwind */
     font-weight: 500;
-    /* Equivalent to font-medium in Tailwind */
     margin-bottom: 8px;
-    /* Equivalent to mb-2 in Tailwind */
-}
+} */
 
 /* Days grid */
-.days-grid {
+/* .days-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
-    /* Equivalent to gap-1 in Tailwind */
-}
+} */
 
 /* Individual day button */
-.day-button {
+/* .day-button {
     width: 40px;
-    /* Equivalent to w-10 in Tailwind */
     height: 40px;
-    /* Equivalent to h-10 in Tailwind */
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    /* Equivalent to rounded-full in Tailwind */
     transition: all 0.2s ease;
-    /* Equivalent to transition-all duration-200 in Tailwind */
-}
+} */
 
 /* Styles for selected date */
-.day-button.selected {
+/* .day-button.selected {
     background-color: #3b82f6;
-    /* Equivalent to bg-blue-500 in Tailwind */
     color: #fff;
-    /* Equivalent to text-white in Tailwind */
-}
+} */
 
 /* Styles for days in the current month */
-.day-button.current-month {
+/* .day-button.current-month {
     color: #111827;
-    /* Equivalent to text-gray-900 in Tailwind */
 }
 
 .day-button.current-month:hover {
     background-color: #e5e7eb;
-    /* Equivalent to hover:bg-gray-200 in Tailwind */
-}
+} */
 
 /* Styles for days outside the current month */
-.day-button.outside-month {
+/* .day-button.outside-month {
     color: #d1d5db;
-    /* Equivalent to text-gray-300 in Tailwind */
-}
+} */
 
 /* Task list container */
 .task-list-container {

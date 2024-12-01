@@ -40,6 +40,7 @@
     "morgan": "^1.9",
     "npm-run-all": "^4.1",
     "postcss": "^8.4",
+    "quill": "^2.0.3",
     "react": "^18",
     "react-beautiful-dnd": "^13.1.1",
     "react-big-calendar": "^1.16.3",
