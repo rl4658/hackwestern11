@@ -13,7 +13,7 @@ import "../../css/calendar.css";
 
 const MINUTES_IN_DAY = 24 * 60;
 
-function MainCalendar({ tasks, selectedDate, onDateSelect }) {
+function MainCalendar({ tasks, selectedDate }) {
   const weekStart = startOfWeek(selectedDate);
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   const timeSlots = Array.from({ length: 48 }, (_, i) => i * 30); // 48 half-hour slots
@@ -21,18 +21,27 @@ function MainCalendar({ tasks, selectedDate, onDateSelect }) {
   const onDragEnd = (result) => {
     if (!result.destination) return;
 
-    // Add optional logic to handle drag-and-drop (if needed for dynamic tasks)
+    // Handle drag-and-drop logic here (if required)
   };
 
   const getTaskPosition = (task) => {
     const startOfDay = setMinutes(setHours(new Date(task.date), 0), 0);
     const taskStart = differenceInMinutes(
-      setMinutes(setHours(new Date(task.date), task.startTime.split(":")[0]), task.startTime.split(":")[1]),
+      setMinutes(
+        setHours(new Date(task.date), task.startTime.split(":")[0]),
+        task.startTime.split(":")[1]
+      ),
       startOfDay
     );
     const taskDuration = differenceInMinutes(
-      setMinutes(setHours(new Date(task.date), task.endTime.split(":")[0]), task.endTime.split(":")[1]),
-      setMinutes(setHours(new Date(task.date), task.startTime.split(":")[0]), task.startTime.split(":")[1])
+      setMinutes(
+        setHours(new Date(task.date), task.endTime.split(":")[0]),
+        task.endTime.split(":")[1]
+      ),
+      setMinutes(
+        setHours(new Date(task.date), task.startTime.split(":")[0]),
+        task.startTime.split(":")[1]
+      )
     );
     const top = (taskStart / MINUTES_IN_DAY) * 100;
     const height = (taskDuration / MINUTES_IN_DAY) * 100;
@@ -93,12 +102,8 @@ function MainCalendar({ tasks, selectedDate, onDateSelect }) {
                                 className="task-title"
                                 style={{ backgroundColor: task.color }}
                               >
-                                {task.name}
+                                {task.name} {/* Only displaying task name */}
                               </div>
-                              <div className="task-time">
-                                {task.startTime} - {task.endTime}
-                              </div>
-                              <div className="task-note">{task.note}</div>
                             </div>
                           )}
                         </Draggable>

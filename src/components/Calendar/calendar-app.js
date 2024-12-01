@@ -17,7 +17,7 @@ export default function CalendarApp() {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
   const addTask = (newTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setTasks((prevTasks) => [...prevTasks, newTask]); // Update tasks state
   };
 
   return (
@@ -33,7 +33,7 @@ export default function CalendarApp() {
             onDateSelect={setSelectedDate}
           />
           <div className="upcoming-events-wrapper">
-            <UpcomingEvents tasks={tasks} />
+            <UpcomingEvents tasks={tasks} /> {/* Pass tasks state here */}
           </div>
         </aside>
 
@@ -63,7 +63,7 @@ export default function CalendarApp() {
       <AddTaskModal
         isOpen={isAddTaskModalOpen}
         onClose={() => setIsAddTaskModalOpen(false)}
-        onAddTask={addTask}
+        onAddTask={addTask} // Add task callback
       />
     </div>
   );

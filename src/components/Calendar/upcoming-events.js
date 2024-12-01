@@ -3,7 +3,14 @@ import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import "../../css/calendar.css";
 
-export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask }) {
+export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
+  // Sort tasks by date and time
+  const sortedTasks = [...tasks].sort((a, b) => {
+    const dateComparison = new Date(a.date) - new Date(b.date);
+    if (dateComparison !== 0) return dateComparison;
+    return a.startTime.localeCompare(b.startTime); // Sort by time if dates are equal
+  });
+
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -80,13 +87,11 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask }) {
       </div>
       {/* Events List */}
       <div className="events-list-container">
-        {events.length === 0 ? (
-          <p className="empty-events-message">
-            No upcoming events. Add one above!
-          </p>
+        {sortedTasks.length === 0 ? (
+          <p className="empty-events-message">No upcoming events. Add one above!</p>
         ) : (
           <ul className="events-list">
-            {events.map((event) => (
+            {sortedTasks.map((event) => (
               <li key={event.id} className="event-item">
                 <div>
                   <div className="event-name">{event.name}</div>
@@ -95,9 +100,10 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask }) {
                     {event.startTime} - {event.endTime}
                   </div>
                 </div>
+                {/* Add functionality for editing */}
                 <button
                   className="edit-event-button"
-                  onClick={() => handleEdit(event)}
+                  onClick={() => console.log("Edit functionality can be added here")}
                 >
                   Edit
                 </button>
@@ -118,7 +124,7 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask }) {
           />
         )}
       </div>
-    </div>
+    </div >
   );
 }
 
