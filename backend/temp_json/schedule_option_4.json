@@ -22,23 +22,23 @@
   },
   {
     "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-25T16:00:00",
-    "TaskEndTime": "2024-11-25T17:00:00",
+    "TaskStartTime": "2024-11-25T07:00:00",
+    "TaskEndTime": "2024-11-25T08:00:00",
     "TaskLocation": "Gym",
-    "TaskDescription": "Monday session"
+    "TaskDescription": "None"
   },
   {
     "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-26T16:00:00",
-    "TaskEndTime": "2024-11-26T17:00:00",
+    "TaskStartTime": "2024-11-26T13:00:00",
+    "TaskEndTime": "2024-11-26T14:00:00",
     "TaskLocation": "Gym",
-    "TaskDescription": "Tuesday session"
+    "TaskDescription": "None"
   },
   {
     "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-29T16:00:00",
-    "TaskEndTime": "2024-11-29T17:00:00",
+    "TaskStartTime": "2024-11-29T07:00:00",
+    "TaskEndTime": "2024-11-29T08:00:00",
     "TaskLocation": "Gym",
-    "TaskDescription": "Friday session"
+    "TaskDescription": "None"
   }
 ]

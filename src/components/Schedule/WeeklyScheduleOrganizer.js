@@ -1,5 +1,3 @@
-// src/components/Schedule/WeeklyScheduleOrganizer.js
-
 import React, { useState, useRef, useEffect } from 'react';
 import SelectedSchedule from './SelectedSchedule';
 import ChatPrompt from './chatPrompt';
@@ -36,6 +34,16 @@ export default function WeeklyScheduleOrganizer() {
       console.error('Invalid JSON structure: schedules not found');
     }
   }, []);
+
+  const handleSendMessage = (message) => {
+    console.log('Message sent to backend:', message);
+    // Example: Send message to backend
+    // fetch('/api/sendMessage', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ message }),
+    // });
+  };
 
   const handleImport = (event) => {
     const file = event.target.files[0];
@@ -134,19 +142,16 @@ export default function WeeklyScheduleOrganizer() {
                 }
                 updatedSchedule[day][hour] = taskName;
 
-                // Ensure the ID is carried over
                 updatedSchedule.id = selectedSchedule.id;
 
                 setSelectedSchedule(updatedSchedule);
 
-                // Update allSchedules
                 setAllSchedules((prevSchedules) =>
                   prevSchedules.map((schedule) =>
                     schedule.id === selectedSchedule.id ? updatedSchedule : schedule
                   )
                 );
 
-                // Update generatedSchedules
                 setGeneratedSchedules((prevSchedules) =>
                   prevSchedules.map((schedule) =>
                     schedule.id === selectedSchedule.id ? updatedSchedule : schedule

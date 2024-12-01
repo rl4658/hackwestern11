@@ -48,3 +48,4 @@ def test_process_query_no_query():
 if __name__ == '__main__':
     print("Running test for valid query...")
     test_process_query()
+    
