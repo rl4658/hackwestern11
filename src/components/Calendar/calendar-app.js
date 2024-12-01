@@ -33,7 +33,10 @@ export default function CalendarApp() {
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
           />
-          <UpcomingEvents tasks={tasks} />
+          <UpcomingEvents
+            tasks={tasks}
+            onTaskUpdate={(updatedTasks) => setTasks(updatedTasks)}
+          />
         </aside>
 
         {/* Main Calendar */}

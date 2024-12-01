@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import "../../css/calendar.css";
 
-export function UpcomingEvents({ onTaskUpdate, tasks }) {
+export function UpcomingEvents({ tasks, onTaskUpdate }) {
   // Sort tasks by date and time
   const sortedTasks = [...tasks].sort((a, b) => {
     const dateComparison = new Date(a.date) - new Date(b.date);
@@ -26,9 +26,14 @@ export function UpcomingEvents({ onTaskUpdate, tasks }) {
   };
 
   const deleteEvent = (eventId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== eventId);
-    onTaskUpdate(updatedTasks); // Update the parent state
-    setSelectedEvent(null); // Close the edit form
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this task? This action cannot be undone."
+    );
+    if (confirmDelete) {
+      const updatedTasks = tasks.filter((task) => task.id !== eventId);
+      onTaskUpdate(updatedTasks); // Update the parent state
+      setSelectedEvent(null); // Close the edit form
+    }
   };
 
   return (
@@ -89,17 +94,17 @@ function EventEditForm({ event, onSave, onDelete, onCancel }) {
   const [color, setColor] = useState(event.color);
 
   const handleSave = () => {
+    if (!name || !date || !startTime || !endTime) {
+      alert("Please fill in all required fields!");
+      return;
+    }
+
     const updatedEvent = { ...event, name, date, startTime, endTime, note, color };
-    onSave(updatedEvent);
+    onSave(updatedEvent); // Save the updated task
   };
 
   const handleDelete = () => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete the task "${event.name}"?`
-    );
-    if (confirmDelete) {
-      onDelete(event.id);
-    }
+    onDelete(event.id); // Confirm and delete the task
   };
 
   return (
