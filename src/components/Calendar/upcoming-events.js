@@ -1,9 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import "../../css/calendar.css";
 
-export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
+export function UpcomingEvents({ onTaskUpdate, tasks }) {
   // Sort tasks by date and time
   const sortedTasks = [...tasks].sort((a, b) => {
     const dateComparison = new Date(a.date) - new Date(b.date);
@@ -11,72 +11,23 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
     return a.startTime.localeCompare(b.startTime); // Sort by time if dates are equal
   });
 
-  const [events, setEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  useEffect(() => {
-    // Sample events for demonstration
-    const sampleEvents = [
-      {
-        id: "1",
-        name: "Team Meeting",
-        date: "2024-12-05",
-        startTime: "10:00",
-        endTime: "11:00",
-        note: "Discuss Q1 roadmap",
-        color: "#3b82f6",
-      },
-      {
-        id: "2",
-        name: "Project Deadline",
-        date: "2024-12-07",
-        startTime: "18:00",
-        endTime: "19:00",
-        note: "Finalize the design",
-        color: "#10b981",
-      },
-      {
-        id: "3",
-        name: "Client Call",
-        date: "2024-12-06",
-        startTime: "14:30",
-        endTime: "15:30",
-        note: "Discuss project updates",
-        color: "#ef4444",
-      },
-    ];
-    setEvents(sampleEvents);
-  }, []);
-
-  // Add newly added task to upcoming events
-  useEffect(() => {
-    if (addedTask) {
-      setEvents((prevEvents) => [...prevEvents, addedTask]);
-    }
-  }, [addedTask]);
+  const [selectedEvent, setSelectedEvent] = useState(null); // Holds the event being edited
 
   const handleEdit = (event) => {
     setSelectedEvent(event); // Open the edit form with the event details
-    onEdit?.(event); // Pass to parent component if needed
   };
 
   const saveEvent = (updatedEvent) => {
-    setEvents((prevEvents) =>
-      prevEvents.map((event) =>
-        event.id === updatedEvent.id ? updatedEvent : event
-      )
+    const updatedTasks = tasks.map((task) =>
+      task.id === updatedEvent.id ? updatedEvent : task
     );
+    onTaskUpdate(updatedTasks); // Update the parent state
     setSelectedEvent(null); // Close the edit form
-
-    if (onTaskUpdate) {
-      onTaskUpdate(updatedEvent); // Pass the updated event to the parent for calendar update
-    }
   };
 
   const deleteEvent = (eventId) => {
-    setEvents((prevEvents) =>
-      prevEvents.filter((event) => event.id !== eventId)
-    );
+    const updatedTasks = tasks.filter((task) => task.id !== eventId);
+    onTaskUpdate(updatedTasks); // Update the parent state
     setSelectedEvent(null); // Close the edit form
   };
 
@@ -88,7 +39,9 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
       {/* Events List */}
       <div className="events-list-container">
         {sortedTasks.length === 0 ? (
-          <p className="empty-events-message">No upcoming events. Add one above!</p>
+          <p className="empty-events-message">
+            No upcoming events. Add one above!
+          </p>
         ) : (
           <ul className="events-list">
             {sortedTasks.map((event) => (
@@ -100,10 +53,9 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
                     {event.startTime} - {event.endTime}
                   </div>
                 </div>
-                {/* Add functionality for editing */}
                 <button
                   className="edit-event-button"
-                  onClick={() => console.log("Edit functionality can be added here")}
+                  onClick={() => handleEdit(event)}
                 >
                   Edit
                 </button>
@@ -113,18 +65,18 @@ export function UpcomingEvents({ onEdit, onTaskUpdate, addedTask, tasks }) {
         )}
       </div>
 
-      {/* Edit Task Form in Right Sidebar */}
-      <div className="edit-task-right-sidebar">
-        {selectedEvent && (
+      {/* Edit Task Form */}
+      {selectedEvent && (
+        <div className="edit-task-right-sidebar">
           <EventEditForm
             event={selectedEvent}
             onSave={saveEvent}
             onDelete={deleteEvent}
             onCancel={() => setSelectedEvent(null)}
           />
-        )}
-      </div>
-    </div >
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -208,7 +160,11 @@ function EventEditForm({ event, onSave, onDelete, onCancel }) {
           <button type="button" onClick={handleSave}>
             Save
           </button>
-          <button type="button" className="delete-button" onClick={handleDelete}>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={handleDelete}
+          >
             Delete
           </button>
         </div>

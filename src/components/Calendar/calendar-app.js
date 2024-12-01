@@ -4,11 +4,8 @@ import { useState } from "react";
 import Header from "./header";
 import MainCalendar from "./main-calendar";
 import SideCalendar from "./side-calendar";
-import TaskList from "./tasks-lists";
-import VoicePrompt from "./voice-prompt";
 import AddTaskModal from "./add-tasks-modal";
 import UpcomingEvents from "./upcoming-events";
-import NoteSection from "./note-section";
 import "../../css/calendar.css";
 
 export default function CalendarApp() {
@@ -17,13 +14,17 @@ export default function CalendarApp() {
   const [isAddTaskModalOpen, setIsAddTaskModalOpen] = useState(false);
 
   const addTask = (newTask) => {
-    setTasks((prevTasks) => [...prevTasks, newTask]); // Update tasks state
+    setTasks((prevTasks) => [...prevTasks, newTask]); // Add new task
+  };
+
+  const importTasks = (importedTasks) => {
+    setTasks((prevTasks) => [...prevTasks, ...importedTasks]); // Merge imported tasks
   };
 
   return (
     <div className="calendar-app">
       {/* Header */}
-      <Header className="calendar-header" />
+      <Header onImportTasks={importTasks} />
 
       <div className="calendar-content">
         {/* Left Sidebar */}
@@ -32,9 +33,7 @@ export default function CalendarApp() {
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
           />
-          <div className="upcoming-events-wrapper">
-            <UpcomingEvents tasks={tasks} /> {/* Pass tasks state here */}
-          </div>
+          <UpcomingEvents tasks={tasks} />
         </aside>
 
         {/* Main Calendar */}
@@ -50,20 +49,14 @@ export default function CalendarApp() {
           >
             Add Task
           </button>
-
-          {/* Note Section */}
-          <NoteSection />
-
-          <TaskList />
-          <VoicePrompt />
         </aside>
       </div>
 
-      {/* Task Modal */}
+      {/* Add Task Modal */}
       <AddTaskModal
         isOpen={isAddTaskModalOpen}
         onClose={() => setIsAddTaskModalOpen(false)}
-        onAddTask={addTask} // Add task callback
+        onAddTask={addTask}
       />
     </div>
   );
