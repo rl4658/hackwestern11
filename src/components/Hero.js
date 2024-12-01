@@ -1,17 +1,27 @@
 import React from "react";
+import { Button } from "@mui/material";
 
-import logo from "../assets/logo.svg";
+import logo1 from "../assets/auth0-logo.png";
+import logo2 from "../assets/tempolab-logo.png";
+import logo3 from "../assets/voiceflow-logo.png";
+import "../css/logo.css";  // Import the CSS file here
 
 const Hero = () => (
-  <div className="text-center hero my-5">
-    <img className="mb-3 app-logo" src={logo} alt="React logo" width="120" />
-    <h1 className="mb-4">React.js Sample Project</h1>
-
-    <p className="lead">
-      This is a sample application that demonstrates an authentication flow for
-      an SPA, using <a href="https://reactjs.org">React.js</a>
-    </p>
-  </div>
+  <section className="py-20 text-center">
+    <div className="container mx-auto px-4">
+      <h1 className="text-4xl font-bold mb-4">Simplify Your Schedule with PlaceHolder</h1>
+      <p className="text-xl mb-8">Organize, plan, and collaborate effortlessly with our intuitive calendar solution</p>
+      <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <Button size="large" variant="contained">Get Started</Button>
+        <Button size="large" variant="outlined">Learn More</Button>
+      </div>
+      <div className="mt-12 flex flex-wrap justify-center gap-8">
+        <img src={logo1} alt="Client Logo 1" className="logo1" />
+        <img src={logo2} alt="Client Logo 2" className="logo1" />
+        <img src={logo3} alt="Client Logo 3" className="logo1" />
+      </div>
+    </div>
+  </section>
 );
 
 export default Hero;

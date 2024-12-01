@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Side Calendar Styling */
+.side-calendar {
+    width: 100%;
+    max-width: 300px;
+    /* Adjust based on design requirements */
+    padding: 16px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+}
+
+.side-calendar .grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* 7 columns for weekdays */
+    gap: 4px;
+}
+
+.side-calendar .button {
+    width: 36px;
+    /* Uniform width */
+    height: 36px;
+    /* Uniform height */
+    line-height: 36px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.right-sidebar,
+.left-sidebar {
+    overflow-y: auto;
+}
+
+.side-calendar button {
+    transition: background-color 0.2s ease;
+}
+
+.side-calendar button:hover {
+    background-color: #e5e7eb;
+    /* Hover effect for non-selected days */
+}

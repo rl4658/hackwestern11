@@ -1,0 +1,84 @@
+/* key.css */
+
+.content-wrapper {
+  padding: 4rem 0;
+  background-color: #f9fafb;
+  /* Light background for contrast */
+}
+
+.key-features-section {
+  text-align: center;
+}
+
+.key-features-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+  color: #111827;
+  /* Dark color for text */
+}
+
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.key-features-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .key-features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .key-features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.key-feature-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.key-feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.key-feature-card-header {
+  background-color: #ffffff;
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.key-feature-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.key-feature-card-content {
+  padding: 1.5rem 1rem;
+}
+
+.key-feature-card-description {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+.key-feature-card-icon {
+  width: 40px;
+  height: 40px;
+  color: #111827;
+  /* Dark icon color for visibility */
+  margin-right: 1rem;
+}
