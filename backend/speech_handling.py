@@ -2,7 +2,6 @@ import requests
 import os
 import mimetypes
 from assembly import transcribe
-#from checkmp4 import is_mp4_file
 import os
 import mimetypes
 
