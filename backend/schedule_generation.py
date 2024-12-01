@@ -3,6 +3,7 @@ import json
 from openai import OpenAI
 import time
 from dotenv import load_dotenv
+from config import client
 
 load_dotenv()
 
