@@ -1,3 +1,5 @@
+// src/components/Schedule/SelectedSchedule.js
+
 import React from 'react';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];

@@ -1,3 +1,5 @@
+// src/components/Schedule/WeeklyScheduleOrganizer.js
+
 import React, { useState, useRef } from 'react';
 import SelectedSchedule from './SelectedSchedule';
 import GeneratedSchedules from './GeneratedSchedules';
@@ -5,49 +7,30 @@ import ChatPrompt from './chatPrompt';
 import Input from './utils/input';
 import { ExportButton, AddButton, GenerateButton } from './utils/button';
 import { parseJsonSchedule, generateScheduleFromPrompt, generateUniqueSchedules } from './utils/ScheduleUtils';
+import { v4 as uuidv4 } from 'uuid'; // Import UUID library
 
 export default function WeeklyScheduleOrganizer() {
-    const [selectedSchedule, setSelectedSchedule] = useState(null); // The currently selected schedule
-    const [generatedSchedules, setGeneratedSchedules] = useState([]); // List of generated schedules
-    const [allSchedules, setAllSchedules] = useState([]); // All schedules (includes imported or generated)
-    const fileInputRef = useRef(null); // Ref for the file input
+    const [selectedSchedule, setSelectedSchedule] = useState(null);
+    const [generatedSchedules, setGeneratedSchedules] = useState([]);
+    const [allSchedules, setAllSchedules] = useState([]);
+    const fileInputRef = useRef(null);
 
-    // Handles generating 5 unique schedules
-    const handleGenerate = () => {
-        const newSchedules = generateUniqueSchedules(5, allSchedules);
-        setGeneratedSchedules(newSchedules);
-        setAllSchedules([...allSchedules, ...newSchedules]);
-    };
-
-    // Handles exporting the selected schedule as JSON
-    const handleExport = () => {
-        if (selectedSchedule) {
-            const jsonString = JSON.stringify(selectedSchedule, null, 2);
-            const blob = new Blob([jsonString], { type: 'application/json' });
-            const href = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = href;
-            link.download = 'weekly-schedule.json';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } else {
-            alert('No schedule selected to export!');
-        }
-    };
-
-    // Handles importing a schedule from a JSON file
     const handleImport = (event) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
-                    const importedSchedule = parseJsonSchedule(e.target.result);
-                    if (importedSchedule) {
-                        setSelectedSchedule(importedSchedule);
-                        setGeneratedSchedules([importedSchedule, ...generatedSchedules.slice(0, 4)]);
-                        setAllSchedules([importedSchedule, ...allSchedules]);
+                    const importedSchedules = parseJsonSchedule(e.target.result);
+                    if (importedSchedules) {
+                        const schedulesWithIds = importedSchedules.map((schedule) => ({
+                            ...schedule,
+                            id: uuidv4(),
+                        }));
+
+                        setGeneratedSchedules(schedulesWithIds);
+                        setAllSchedules([...allSchedules, ...schedulesWithIds]);
+                        setSelectedSchedule(schedulesWithIds[0]);
                     }
                 } catch (error) {
                     alert('Invalid JSON file. Please check the file content.');
@@ -57,9 +40,15 @@ export default function WeeklyScheduleOrganizer() {
         }
     };
 
-    // Handles adding a task via prompt
+    const handleGenerate = () => {
+        const newSchedules = generateUniqueSchedules(5, allSchedules);
+        setGeneratedSchedules(newSchedules);
+        setAllSchedules([...allSchedules, ...newSchedules]);
+    };
+
     const handlePromptSubmit = (prompt) => {
         const newSchedule = generateScheduleFromPrompt(prompt);
+        newSchedule.id = uuidv4();
         setSelectedSchedule(newSchedule);
         setGeneratedSchedules([newSchedule, ...generatedSchedules.slice(0, 4)]);
         setAllSchedules([newSchedule, ...allSchedules]);
@@ -100,14 +89,34 @@ export default function WeeklyScheduleOrganizer() {
                         <GenerateButton onGenerate={handleGenerate} />
                         <AddButton
                             onAddTask={(taskPrompt) => {
+                                const [day, time, taskName] = taskPrompt.split(':');
+                                const hour = parseInt(time, 10);
+
                                 const updatedSchedule = { ...selectedSchedule };
-                                // Assuming a day and time are parsed from the prompt
-                                const [day, time] = taskPrompt.split(':');
+
                                 if (!updatedSchedule[day]) {
                                     updatedSchedule[day] = {};
                                 }
-                                updatedSchedule[day][time] = taskPrompt;
+                                updatedSchedule[day][hour] = taskName;
+
+                                // Ensure the ID is carried over
+                                updatedSchedule.id = selectedSchedule.id;
+
                                 setSelectedSchedule(updatedSchedule);
+
+                                // Update allSchedules
+                                setAllSchedules((prevSchedules) =>
+                                    prevSchedules.map((schedule) =>
+                                        schedule.id === selectedSchedule.id ? updatedSchedule : schedule
+                                    )
+                                );
+
+                                // Update generatedSchedules
+                                setGeneratedSchedules((prevSchedules) =>
+                                    prevSchedules.map((schedule) =>
+                                        schedule.id === selectedSchedule.id ? updatedSchedule : schedule
+                                    )
+                                );
                             }}
                         />
                     </div>
