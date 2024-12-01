@@ -75,7 +75,7 @@ const NavBar = () => {
                     exact
                     activeClassName="router-link-exact-active"
                   >
-                    Your Calendar
+                    Calendar
                   </NavLink>
                 </NavItem>
               )}

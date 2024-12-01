@@ -15,16 +15,9 @@ export default function ChatPrompt({ onSubmit }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="flex gap-2">
-            <Input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Add a new task or event..."
-                className="flex-1"
-            />
-            <AddButton type="submit">Add</AddButton>
-        </form>
+        <>
+           
+        </>
     );
 }
 

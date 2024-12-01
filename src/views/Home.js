@@ -5,6 +5,7 @@ import Content from "../components/Content";
 import TeamSolutions from "../components/team-solution";
 import DownloadOptions from "../components/download-option";
 import CallToAction from "../components/individual-solution";
+import TemplatesIntegrations from "../components/template";
 
 const Home = () => (
   <Fragment>
@@ -13,6 +14,7 @@ const Home = () => (
     <Content />
     <TeamSolutions />
     <CallToAction />
+    <TemplatesIntegrations />
     <DownloadOptions />
   </Fragment>
 );

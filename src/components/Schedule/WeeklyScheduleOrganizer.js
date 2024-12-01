@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios'; // Import axios for HTTP requests
 import SelectedSchedule from './SelectedSchedule';
 import GeneratedSchedules from './GeneratedSchedules';
 import ChatPrompt from './chatPrompt';
@@ -10,6 +11,7 @@ export default function WeeklyScheduleOrganizer() {
     const [selectedSchedule, setSelectedSchedule] = useState(null); // The currently selected schedule
     const [generatedSchedules, setGeneratedSchedules] = useState([]); // List of generated schedules
     const [allSchedules, setAllSchedules] = useState([]); // All schedules (includes imported or generated)
+    const [textInput, setTextInput] = useState(""); // Text input for additional info
     const fileInputRef = useRef(null); // Ref for the file input
 
     // Handles generating 5 unique schedules
@@ -65,12 +67,48 @@ export default function WeeklyScheduleOrganizer() {
         setAllSchedules([newSchedule, ...allSchedules]);
     };
 
+    // Handles generating the calendar by sending input text to backend
+    const handleGenerateCalendar = async () => {
+        if (!textInput) {
+            alert("Please enter a query to generate a calendar");
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:5000/process_query', {
+                query: textInput,
+            });
+            
+            // Update generated schedules with response data
+            if (response.data && response.data.schedules) {
+                setGeneratedSchedules(response.data.schedules);
+                setAllSchedules([...allSchedules, ...response.data.schedules]);
+            }
+        } catch (error) {
+            console.error("Error generating calendar:", error);
+            alert("There was an error generating the calendar. Please try again.");
+        }
+    };
+
     return (
         <div className="h-screen flex flex-col">
             {/* Upper Section */}
             <div className="h-1/2 p-4 relative">
                 <SelectedSchedule schedule={selectedSchedule} />
-                <div className="absolute bottom-4 right-4 flex gap-2">
+                <div className="absolute bottom-4 right-4 flex gap-2 items-center">
+                    <input
+                        type="text"
+                        value={textInput}
+                        onChange={(e) => setTextInput(e.target.value)}
+                        placeholder="Enter info..."
+                        className="px-4 py-2 border rounded focus:outline-none focus:ring"
+                    />
+                    <button
+                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                        onClick={handleGenerateCalendar}
+                    >
+                        Generate Calendar
+                    </button>
                     <button
                         className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
                         onClick={() => fileInputRef.current.click()}

@@ -1,7 +1,7 @@
 /* logo.css */
 .logo1 {
-    margin-top: 3rem;
-    height: 50px;  /* Set a consistent height */
-    width: 100px;  /* Set a consistent width */
-    object-fit: contain;  /* Ensures the image maintains its aspect ratio */
-  }
+  margin-top: 3rem;
+  height: 50px;           /* Set a consistent height */
+  width: 100px;           /* Set a consistent width */
+  object-fit: contain;    /* Ensures the image maintains its aspect ratio */
+}
