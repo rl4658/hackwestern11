@@ -9,7 +9,11 @@ import Home from "./views/Home";
 import Profile from "./views/Profile";
 //import ExternalApi from "./views/ExternalApi";
 import YourCalendar from "./views/YourCalendar";
+<<<<<<< HEAD
 import Schedule from "./views/Schedule";
+=======
+import GenerateCalendar from "./views/GenerateCalendar";
+>>>>>>> 7558b2baeecde67405804048baeeb991ef9f1383
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 

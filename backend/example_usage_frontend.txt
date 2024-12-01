@@ -1,0 +1,57 @@
+import React, { useState } from 'react';
+
+const ScheduleQuery = () => {
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch('http://localhost:5000/process_query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`Server Error: ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      setResponse(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+      setResponse(null);
+    }
+  };
+
+  return (
+    <div>
+      <h1>Schedule Query</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Enter your query"
+        />
+        <button type="submit">Submit</button>
+      </form>
+
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {response && (
+        <div>
+          <h2>Response:</h2>
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ScheduleQuery;

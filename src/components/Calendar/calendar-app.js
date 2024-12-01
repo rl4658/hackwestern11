@@ -54,7 +54,7 @@ export default function CalendarApp() {
       </div>
 
       {/* Footer */}
-      <Footer className="calendar-footer" />
+      {/* <Footer className="calendar-footer" /> */}
 
       {/* Task Modal */}
       <AddTaskModel
