@@ -9,6 +9,7 @@ import Home from "./views/Home";
 import Profile from "./views/Profile";
 //import ExternalApi from "./views/ExternalApi";
 import YourCalendar from "./views/YourCalendar";
+import GenerateCalendar from "./views/GenerateCalendar";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/" exact component={Home} />
             <Route path="/profile" component={Profile} />
             <Route path="/your-calendar" component={YourCalendar} />
+            <Route path="/generate-calendar" component={GenerateCalendar} />
           </Switch>
         </Container>
         <Footer />
