@@ -57,7 +57,7 @@ def create_schedule_assistant():
     Create an OpenAI Assistant for schedule management
     """
     file = client.files.create(
-        file=open("user_schedule/example_schedule.csv", "rb"),
+        file=open("user_schedule_csv/example_schedule.csv", "rb"),
         purpose='assistants'
     )
 
@@ -127,7 +127,7 @@ def process_schedule_request(query):
             assistant_id=assistant.id
         )
 
-        # Wait for run completion
+
         while run.status not in ["completed", "failed"]:
             run = client.beta.threads.runs.retrieve(
                 thread_id=thread.id,

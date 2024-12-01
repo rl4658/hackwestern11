@@ -1,6 +1,6 @@
 from flask import Flask, send_file, request, jsonify
 
-FILE_PATH = "user_schedule/example_schedule.csv"
+FILE_PATH = "user_schedule_csv/example_schedule.csv"
 
 def download_file():
     """
