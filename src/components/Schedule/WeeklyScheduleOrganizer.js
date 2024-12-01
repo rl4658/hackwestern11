@@ -1,16 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import SelectedSchedule from './SelectedSchedule';
 import ChatPrompt from './chatPrompt';
-import Input from './utils/input';
 import { v4 as uuidv4 } from 'uuid';
-import schedulesData from './schedules.json';
 import { ExportButton, AddButton, GenerateButton } from './utils/button';
-import {
-  parseJsonSchedule,
-  generateScheduleFromPrompt,
-  generateUniqueSchedules,
-  convertTasksToSchedule,
-} from './utils/ScheduleUtils';
+import { convertTasksToSchedule } from './utils/ScheduleUtils';
 
 export default function WeeklyScheduleOrganizer() {
   const [selectedSchedule, setSelectedSchedule] = useState(null);
@@ -19,30 +13,43 @@ export default function WeeklyScheduleOrganizer() {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    if (schedulesData && schedulesData.Schedules && schedulesData.Schedules.schedules) {
-      const importedSchedules = schedulesData.Schedules.schedules.map((scheduleTasks) =>
+    // Initialize with empty schedules or fetch from a default source if needed
+    setGeneratedSchedules([]);
+    setAllSchedules([]);
+  }, []);
+
+  const handlePromptSubmit = async (prompt) => {
+    try {
+      // Send the prompt to the Flask API
+      const response = await axios.post('http://localhost:5000/process_query', {
+        query: prompt,
+      });
+
+      const { schedules } = response.data;
+
+      if (!schedules || !Array.isArray(schedules)) {
+        throw new Error('Invalid response from server');
+      }
+
+      // Convert tasks to the schedule format
+      const importedSchedules = schedules.map((scheduleTasks) =>
         convertTasksToSchedule(scheduleTasks)
       );
+
+      // Add unique IDs to each schedule
       const schedulesWithIds = importedSchedules.map((schedule) => ({
         ...schedule,
         id: uuidv4(),
       }));
+
+      // Update state with the new schedules
       setGeneratedSchedules(schedulesWithIds);
       setAllSchedules(schedulesWithIds);
       setSelectedSchedule(schedulesWithIds[0]);
-    } else {
-      console.error('Invalid JSON structure: schedules not found');
+    } catch (error) {
+      console.error('Error fetching schedules:', error);
+      alert('Failed to fetch schedules. Please try again.');
     }
-  }, []);
-
-  const handleSendMessage = (message) => {
-    console.log('Message sent to backend:', message);
-    // Example: Send message to backend
-    // fetch('/api/sendMessage', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ message }),
-    // });
   };
 
   const handleImport = (event) => {
@@ -51,37 +58,20 @@ export default function WeeklyScheduleOrganizer() {
       const reader = new FileReader();
       reader.onload = (e) => {
         try {
-          const importedSchedules = parseJsonSchedule(e.target.result);
-          if (importedSchedules) {
-            const schedulesWithIds = importedSchedules.map((schedule) => ({
-              ...schedule,
-              id: uuidv4(),
-            }));
-
-            setGeneratedSchedules(schedulesWithIds);
-            setAllSchedules([...allSchedules, ...schedulesWithIds]);
-            setSelectedSchedule(schedulesWithIds[0]);
-          }
+          const importedSchedules = JSON.parse(e.target.result);
+          const schedulesWithIds = importedSchedules.map((schedule) => ({
+            ...schedule,
+            id: uuidv4(),
+          }));
+          setGeneratedSchedules(schedulesWithIds);
+          setAllSchedules([...allSchedules, ...schedulesWithIds]);
+          setSelectedSchedule(schedulesWithIds[0]);
         } catch (error) {
           alert('Invalid JSON file. Please check the file content.');
         }
       };
       reader.readAsText(file);
     }
-  };
-
-  const handleGenerate = () => {
-    const newSchedules = generateUniqueSchedules(5, allSchedules);
-    setGeneratedSchedules(newSchedules);
-    setAllSchedules([...allSchedules, ...newSchedules]);
-  };
-
-  const handlePromptSubmit = (prompt) => {
-    const newSchedule = generateScheduleFromPrompt(prompt);
-    newSchedule.id = uuidv4();
-    setSelectedSchedule(newSchedule);
-    setGeneratedSchedules([newSchedule, ...generatedSchedules.slice(0, 4)]);
-    setAllSchedules([newSchedule, ...allSchedules]);
   };
 
   return (
@@ -125,11 +115,16 @@ export default function WeeklyScheduleOrganizer() {
             </button>
           ))}
         </div>
+
         {/* Controls */}
         <div className="flex justify-between items-center">
           <ChatPrompt onSubmit={handlePromptSubmit} />
           <div className="flex gap-2">
-            <GenerateButton onGenerate={handleGenerate} />
+            <GenerateButton
+              onGenerate={() =>
+                alert('Generate function is not implemented yet.')
+              }
+            />
             <AddButton
               onAddTask={(taskPrompt) => {
                 const [day, time, taskName] = taskPrompt.split(':');
@@ -148,13 +143,17 @@ export default function WeeklyScheduleOrganizer() {
 
                 setAllSchedules((prevSchedules) =>
                   prevSchedules.map((schedule) =>
-                    schedule.id === selectedSchedule.id ? updatedSchedule : schedule
+                    schedule.id === selectedSchedule.id
+                      ? updatedSchedule
+                      : schedule
                   )
                 );
 
                 setGeneratedSchedules((prevSchedules) =>
                   prevSchedules.map((schedule) =>
-                    schedule.id === selectedSchedule.id ? updatedSchedule : schedule
+                    schedule.id === selectedSchedule.id
+                      ? updatedSchedule
+                      : schedule
                   )
                 );
               }}

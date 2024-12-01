@@ -21,24 +21,10 @@
     "TaskDescription": "None"
   },
   {
-    "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-25T08:00:00",
-    "TaskEndTime": "2024-11-25T09:00:00",
-    "TaskLocation": "Gym",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-26T14:00:00",
-    "TaskEndTime": "2024-11-26T15:00:00",
-    "TaskLocation": "Gym",
-    "TaskDescription": "None"
-  },
-  {
-    "TaskName": "Basketball",
-    "TaskStartTime": "2024-11-29T08:00:00",
-    "TaskEndTime": "2024-11-29T09:00:00",
-    "TaskLocation": "Gym",
-    "TaskDescription": "None"
+    "TaskName": "Math Study",
+    "TaskStartTime": "2024-11-29 09:00:00",
+    "TaskEndTime": "2024-11-29 13:00:00",
+    "TaskLocation": "Library",
+    "TaskDescription": "Focus on calculus"
   }
 ]
